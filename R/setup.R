@@ -22,6 +22,26 @@ library(tidyverse)
 library(janitor)
 library(quarto)
 
+required_packages <- c(
+  "tidyverse", 
+  "janitor",
+  "quarto",
+  "sf",
+  "tigris",
+  "tidycensus",
+  "leaflet",
+  "htmltools",
+  "htmlwidgets",
+  "dplyr",
+  "stringr",
+  "scales"
+)
+
+# Load packages quietly
+invisible(lapply(required_packages, library, character.only = TRUE))
+
+
+
 # # Activate renv if used
 # if (file.exists("renv.lock")) {
 #   renv::activate()
