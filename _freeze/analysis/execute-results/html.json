@@ -1,0 +1,15 @@
+{
+  "hash": "b2d749ae0e589929d0cc25bb0504f602",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: 'Analysis'\nformat:\n  html:\n    css: styles.css\n    embed-resources: TRUE\n    code-fold: true\n    page-layout: full\n    fig_caption: yes\n    toc: TRUE\n---\n\n\n\n\n\n## About the Data\n\nFor more details about the analysis plan and structure of the data:\n\n- [Analysis Plan](https://calfresh-cfa-exercise.netlify.app/analysis_plan)\n- [Codebook](https://calfresh-cfa-exercise.netlify.app/data_codebooks)\n\n## Data Overview\n\n\n## Descriptive Analysis\n\n\n## Logistic Regression\n\n\n## Results\n\n\n## Discussion\n\n\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

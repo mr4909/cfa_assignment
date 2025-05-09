@@ -10,4 +10,34 @@ format:
     toc: TRUE
 ---
 
-## Analysis
+```{r setup, include=FALSE}
+source("R/setup.R")
+
+# Import exercise data
+exercise_data <- read_csv("D:/code_for_america/exercise_data.csv")
+```
+
+## About the Data
+
+For more details about the analysis plan and structure of the data:
+
+- [Analysis Plan](https://calfresh-cfa-exercise.netlify.app/analysis_plan)
+- [Codebook](https://calfresh-cfa-exercise.netlify.app/data_codebooks)
+
+## Data Overview
+
+
+## Descriptive Analysis
+
+
+## Logistic Regression
+
+
+## Results
+
+
+## Discussion
+
+
+
+

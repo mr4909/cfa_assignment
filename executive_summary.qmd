@@ -11,3 +11,11 @@ format:
 ---
 
 ## Executive Summary
+
+1. **What factors are most strongly associated with CalFresh approval?**  
+
+TBD
+
+2. **Where would you look next to improve the application process?**
+
+TBD

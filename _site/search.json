@@ -42,109 +42,11 @@
     "text": "Stakeholders\nThis analysis models the collaborative work that would involve:\n\nCode for America’s GetCalFresh team: Program designers and policy advocates.\nCounty Human Services Agencies: Decision-makers and data providers.\nApplicants: The core user base, especially those facing structural barriers to access."
   },
   {
-    "objectID": "data_diagram.html",
-    "href": "data_diagram.html",
-    "title": "Data Diagram",
-    "section": "",
-    "text": "Schematic representations showing how various datasets are interconnected and merged for analysis."
-  },
-  {
-    "objectID": "data_diagram.html#about-this-page",
-    "href": "data_diagram.html#about-this-page",
-    "title": "Data Diagram",
-    "section": "",
-    "text": "Schematic representations showing how various datasets are interconnected and merged for analysis."
-  },
-  {
-    "objectID": "contact.html",
-    "href": "contact.html",
-    "title": "Contact",
-    "section": "",
-    "text": "Information for contacting project team members."
-  },
-  {
-    "objectID": "contact.html#about-this-page",
-    "href": "contact.html#about-this-page",
-    "title": "Contact",
-    "section": "",
-    "text": "Information for contacting project team members."
-  },
-  {
-    "objectID": "contact.html#team",
-    "href": "contact.html#team",
-    "title": "Contact",
-    "section": "Team",
-    "text": "Team\nNames and roles of the project team members."
-  },
-  {
-    "objectID": "contact.html#reach-out",
-    "href": "contact.html#reach-out",
-    "title": "Contact",
-    "section": "Reach Out",
-    "text": "Reach Out\nContact details for further communication."
-  },
-  {
     "objectID": "data_codebooks.html",
     "href": "data_codebooks.html",
     "title": "Codebook",
     "section": "",
     "text": "This page provides definitions and context for each variable in the CalFresh application dataset used in the Code for America data science exercise."
-  },
-  {
-    "objectID": "data_codebooks.html#about-this-page",
-    "href": "data_codebooks.html#about-this-page",
-    "title": "Codebooks",
-    "section": "",
-    "text": "Detailed descriptions of all datasets, variables, and classifications used in the project."
-  },
-  {
-    "objectID": "data_codebooks.html#file-1-codebook",
-    "href": "data_codebooks.html#file-1-codebook",
-    "title": "Codebooks",
-    "section": "File 1 Codebook",
-    "text": "File 1 Codebook"
-  },
-  {
-    "objectID": "data_codebooks.html#file-2-codebook",
-    "href": "data_codebooks.html#file-2-codebook",
-    "title": "Codebooks",
-    "section": "File 2 Codebook",
-    "text": "File 2 Codebook"
-  },
-  {
-    "objectID": "decision_making.html",
-    "href": "decision_making.html",
-    "title": "Decision Making",
-    "section": "",
-    "text": "Documentation of the foundational decisions made about data handling, analysis, and overall research approach."
-  },
-  {
-    "objectID": "decision_making.html#about-this-page",
-    "href": "decision_making.html#about-this-page",
-    "title": "Decision Making",
-    "section": "",
-    "text": "Documentation of the foundational decisions made about data handling, analysis, and overall research approach."
-  },
-  {
-    "objectID": "decision_making.html#methodological-decisions",
-    "href": "decision_making.html#methodological-decisions",
-    "title": "Decision Making",
-    "section": "Methodological Decisions",
-    "text": "Methodological Decisions\nA breakdown of critical rules and decisions that guide the project’s analytical framework."
-  },
-  {
-    "objectID": "decision_making.html#data-cleaning-decisions",
-    "href": "decision_making.html#data-cleaning-decisions",
-    "title": "Decision Making",
-    "section": "Data Cleaning Decisions",
-    "text": "Data Cleaning Decisions\nSpecific methods and criteria applied to clean and prepare the data for analysis."
-  },
-  {
-    "objectID": "data_codebooks.html#exercise-data",
-    "href": "data_codebooks.html#exercise-data",
-    "title": "Codebooks",
-    "section": "",
-    "text": "Code\n# Add descriptions to variables\nvar_desc &lt;- list(\n  app_id               = \"Unique identifier for each application\",\n  completion_time_mins = \"Time taken to complete the application, in minutes\",\n  household_size       = \"Number of people applying for CalFresh in the household\",\n  income               = \"Total household income in the last 30 days (randomized slightly for privacy)\",\n  docs_with_app        = \"Count of verification documents uploaded with the initial application\",\n  docs_after_app       = \"Count of verification documents uploaded after application (via Later Docs)\",\n  under18_n            = \"Number of children age 17 or younger included in the application\",\n  over_59_n            = \"Number of adults age 60 or older included in the application\",\n  stable_housing       = \"TRUE if applicant rents or owns the place they sleep; FALSE otherwise\",\n  had_interview        = \"TRUE if applicant reported completing the required interview; may be missing\",\n  zip                  = \"ZIP code where the applicant lives or stays\",\n  approved             = \"TRUE if the application was approved for CalFresh by the county\"\n)\n\n# Use custom R package built by Mari Roberts\ndatabookR::databook(exercise_data, var_descriptions = var_desc)\n\n\n\n\n\n\n\n\n\n\n\n\n\nVariable Name\nVariable Description\nVariable Type\nNumber of Unique Values\nPercentage Missing\nStatistics\n\n\n\n\napp_id\nUnique identifier for each application\nnumeric\n2046\n0.0%\nMin: 1.0\nAvg: 38866.9\nMedian: 38066.5\nMax: 110550.0\nSD: 25305.4\n\n\ncompletion_time_mins\nTime taken to complete the application, in minutes\nnumeric\n2046\n0.0%\nMin: 2.3\nAvg: 21.4\nMedian: 10.4\nMax: 8551.8\nSD: 195.7\n\n\nhousehold_size\nNumber of people applying for CalFresh in the household\nnumeric\n10\n0.2%\nMin: 1.0\nAvg: 1.8\nMedian: 1.0\nMax: 12.0\nSD: 1.3\n\n\nincome\nTotal household income in the last 30 days (randomized slightly for privacy)\nnumeric\n888\n0.0%\nMin: 0.0\nAvg: 936.0\nMedian: 270.0\nMax: 9779.0\nSD: 1228.9\n\n\ndocs_with_app\nCount of verification documents uploaded with the initial application\nnumeric\n19\n0.0%\nMin: 0.0\nAvg: 1.3\nMedian: 0.0\nMax: 25.0\nSD: 2.2\n\n\ndocs_after_app\nCount of verification documents uploaded after application (via Later Docs)\nnumeric\n20\n0.0%\nMin: 0.0\nAvg: 0.8\nMedian: 0.0\nMax: 29.0\nSD: 2.1\n\n\nunder18_n\nNumber of children age 17 or younger included in the application\nnumeric\n7\n0.2%\nMin: 0.0\nAvg: 0.5\nMedian: 0.0\nMax: 6.0\nSD: 1.0\n\n\nover_59_n\nNumber of adults age 60 or older included in the application\nnumeric\n3\n0.2%\nMin: 0.0\nAvg: 0.1\nMedian: 0.0\nMax: 2.0\nSD: 0.3\n\n\nstable_housing\nTRUE if applicant rents or owns the place they sleep; FALSE otherwise\nlogical\n2\n0.0%\nTRUE: 1186 (58.0%)\nFALSE: 860 (42.0%)\n\n\nhad_interview\nTRUE if applicant reported completing the required interview; may be missing\nlogical\n2\n49.7%\nTRUE: 595 (57.8%)\nFALSE: 434 (42.2%)\n\n\nzip\nZIP code where the applicant lives or stays\nnumeric\n28\n0.0%\nMin: 92101.0\nAvg: 92117.9\nMedian: 92114.0\nMax: 92173.0\nSD: 17.1\n\n\napproved\nTRUE if the application was approved for CalFresh by the county\nlogical\n2\n0.0%\nTRUE: 1148 (56.1%)\nFALSE: 898 (43.9%)"
   },
   {
     "objectID": "data_codebooks.html#about-this-dataset",
@@ -175,11 +77,11 @@
     "text": "This analysis plan is for the Code for America take home assignment: identifying factors positively and negatively associated with CalFresh (SNAP) approval based on application data collected through GetCalFresh.org. The dataset includes ~2,000 records from San Diego County and spans application characteristics, document submission behavior, interview status, and approval outcomes."
   },
   {
-    "objectID": "analysis_plan.html#key-questions-from-the-exercise-prompt",
-    "href": "analysis_plan.html#key-questions-from-the-exercise-prompt",
+    "objectID": "analysis_plan.html#key-questions",
+    "href": "analysis_plan.html#key-questions",
     "title": "Analysis Plan",
-    "section": "Key Questions (from the exercise prompt)",
-    "text": "Key Questions (from the exercise prompt)\n\nWhat factors are most strongly associated with CalFresh approval?\n\nWhere would you look next to improve the application process?\n\nAdditional sub-questions I will explore:\n\nHow do interview completion and document submission timing relate to approval?\nAre there interaction effects between eligibility and process variables (e.g., income × housing)?\nDoes approval likelihood vary by geography, and what ZIP-level characteristics might help explain it?"
+    "section": "Key Questions",
+    "text": "Key Questions\n\nWhat factors are most strongly associated with CalFresh approval?\n\nWhere would you look next to improve the application process?\n\nAdditional sub-questions I will explore:\n\nHow do interview completion and document submission timing relate to approval?\nAre there interaction effects between eligibility and process variables (e.g., income × housing)?\nDoes approval likelihood vary by geography, and what ZIP-level characteristics might help explain it?"
   },
   {
     "objectID": "analysis_plan.html#variables-of-interest",
@@ -217,10 +119,94 @@
     "text": "Next Steps for Deeper Insight\nIf this were a full engagement, I would:\n\nConduct qualitative interviews to understand why people don’t complete interviews or submit documents\nTBD"
   },
   {
-    "objectID": "analysis_plan.html#key-questions",
-    "href": "analysis_plan.html#key-questions",
-    "title": "Analysis Plan",
-    "section": "Key Questions",
-    "text": "Key Questions\n\nWhat factors are most strongly associated with CalFresh approval?\n\nWhere would you look next to improve the application process?\n\nAdditional sub-questions I will explore:\n\nHow do interview completion and document submission timing relate to approval?\nAre there interaction effects between eligibility and process variables (e.g., income × housing)?\nDoes approval likelihood vary by geography, and what ZIP-level characteristics might help explain it?"
+    "objectID": "analysis.html",
+    "href": "analysis.html",
+    "title": "Analysis",
+    "section": "",
+    "text": "For more details about the analysis plan and structure of the data:\n\nAnalysis Plan\nCodebook"
+  },
+  {
+    "objectID": "analysis.html#about-the-data",
+    "href": "analysis.html#about-the-data",
+    "title": "Analysis",
+    "section": "",
+    "text": "For more details about the analysis plan and structure of the data:\n\nAnalysis Plan\nCodebook"
+  },
+  {
+    "objectID": "analysis.html#data-overview",
+    "href": "analysis.html#data-overview",
+    "title": "Analysis",
+    "section": "Data Overview",
+    "text": "Data Overview"
+  },
+  {
+    "objectID": "analysis.html#descriptive-analysis",
+    "href": "analysis.html#descriptive-analysis",
+    "title": "Analysis",
+    "section": "Descriptive Analysis",
+    "text": "Descriptive Analysis"
+  },
+  {
+    "objectID": "analysis.html#logistic-regression",
+    "href": "analysis.html#logistic-regression",
+    "title": "Analysis",
+    "section": "Logistic Regression",
+    "text": "Logistic Regression"
+  },
+  {
+    "objectID": "analysis.html#results",
+    "href": "analysis.html#results",
+    "title": "Analysis",
+    "section": "Results",
+    "text": "Results"
+  },
+  {
+    "objectID": "analysis.html#discussion",
+    "href": "analysis.html#discussion",
+    "title": "Analysis",
+    "section": "Discussion",
+    "text": "Discussion"
+  },
+  {
+    "objectID": "contact.html",
+    "href": "contact.html",
+    "title": "Contact",
+    "section": "",
+    "text": "Information for contacting project team members."
+  },
+  {
+    "objectID": "contact.html#about-this-page",
+    "href": "contact.html#about-this-page",
+    "title": "Contact",
+    "section": "",
+    "text": "Information for contacting project team members."
+  },
+  {
+    "objectID": "contact.html#team",
+    "href": "contact.html#team",
+    "title": "Contact",
+    "section": "Team",
+    "text": "Team\nNames and roles of the project team members."
+  },
+  {
+    "objectID": "contact.html#reach-out",
+    "href": "contact.html#reach-out",
+    "title": "Contact",
+    "section": "Reach Out",
+    "text": "Reach Out\nContact details for further communication."
+  },
+  {
+    "objectID": "executive_summary.html",
+    "href": "executive_summary.html",
+    "title": "Executive Summary",
+    "section": "",
+    "text": "What factors are most strongly associated with CalFresh approval?\n\nTBD\n\nWhere would you look next to improve the application process?\n\nTBD"
+  },
+  {
+    "objectID": "executive_summary.html#executive-summary",
+    "href": "executive_summary.html#executive-summary",
+    "title": "Executive Summary",
+    "section": "",
+    "text": "What factors are most strongly associated with CalFresh approval?\n\nTBD\n\nWhere would you look next to improve the application process?\n\nTBD"
   }
 ]
