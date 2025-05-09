@@ -4,14 +4,14 @@
     "href": "index.html",
     "title": "CalFresh SNAP Application Analysis",
     "section": "",
-    "text": "Welcome to the CalFresh SNAP Application Analysis site, created as part of a data science exercise for Code for America.\nThis is a private, self-contained, and reproducible project site intended solely for evaluation purposes.\nThe analysis explores factors associated with CalFresh (SNAP) application approvals in San Diego County, based on ~2,000 applications submitted via GetCalFresh.org.\nIt aims to surface key patterns in approval outcomes and suggest potential improvements to the application process."
+    "text": "Welcome to the CalFresh SNAP Application Analysis site, created as part of a data science take home assignment for Code for America.\nThe analysis explores factors associated with CalFresh (SNAP) application approvals in San Diego County, based on ~2,000 applications submitted via GetCalFresh.org.\nThis project aims to surface key patterns in approval outcomes and suggest potential improvements to the application process."
   },
   {
     "objectID": "index.html#introduction",
     "href": "index.html#introduction",
     "title": "CalFresh SNAP Application Analysis",
     "section": "",
-    "text": "Welcome to the CalFresh SNAP Application Analysis site, created as part of a data science exercise for Code for America.\nThis is a private, self-contained, and reproducible project site intended solely for evaluation purposes.\nThe analysis explores factors associated with CalFresh (SNAP) application approvals in San Diego County, based on ~2,000 applications submitted via GetCalFresh.org.\nIt aims to surface key patterns in approval outcomes and suggest potential improvements to the application process."
+    "text": "Welcome to the CalFresh SNAP Application Analysis site, created as part of a data science take home assignment for Code for America.\nThe analysis explores factors associated with CalFresh (SNAP) application approvals in San Diego County, based on ~2,000 applications submitted via GetCalFresh.org.\nThis project aims to surface key patterns in approval outcomes and suggest potential improvements to the application process."
   },
   {
     "objectID": "index.html#objectives",
@@ -32,7 +32,7 @@
     "href": "index.html#project-links",
     "title": "CalFresh SNAP Application Analysis",
     "section": "Project Links",
-    "text": "Project Links\n\nGitHub Repository: Link to repo if public or for reviewers only\nExercise Prompt: View exercise PDF\nData Source: Provided CSV file via Google Drive (internal use only)"
+    "text": "Project Links\n\nGitHub Repository: Link to repo\nExercise Prompt: View exercise PDF\nData Source: Download from Google Drive"
   },
   {
     "objectID": "index.html#stakeholders",

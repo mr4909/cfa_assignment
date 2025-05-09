@@ -21,7 +21,7 @@ website:
       - text: "Contact"
         href: contact.html
       - text: "Github"
-        href: https://github.com/
+        href: https://github.com/mr4909/cfa_assignment
 
 format:
   html:
