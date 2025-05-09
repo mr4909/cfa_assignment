@@ -1,0 +1,34 @@
+project:
+  type: website
+
+website:
+  title: "Improving Access to CalFresh"
+  favicon: img/favicon.png
+  navbar:
+    right:
+      - text: "Project Overview"
+        href: index.html
+      - text: "Executive Summary"
+        href: executive_summary.html
+      - text: "Analysis"
+        href: analysis.html
+      - text: "Research"
+        menu:
+          - text: "Analysis Plan"
+            href: analysis_plan.html
+          - text: "Codebook"
+            href: data_codebooks.html
+      - text: "Contact"
+        href: contact.html
+      - text: "Github"
+        href: https://github.com/
+
+format:
+  html:
+    theme: flatly
+    css: styles.css
+    toc: true
+    toc-location: left
+
+execute:
+  freeze: auto
