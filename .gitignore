@@ -1,4 +1,20 @@
 # ───────────────────────────────
+# Data files – block all CSVs and other data
+# ───────────────────────────────
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.sav
+*.rds
+*.rda
+*.json
+*.xml
+*.feather
+*.parquet
+data/
+
+# ───────────────────────────────
 # RStudio local/session files
 # ───────────────────────────────
 .Rproj.user/

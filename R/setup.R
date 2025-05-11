@@ -32,7 +32,15 @@ required_packages <- c(
   "stringr",
   "scales",
   "here",
-  "broom"
+  "broom",
+  "naniar",
+  "patchwork",
+  "showtext",
+  "car",
+  "broom",
+  "corrplot",
+  "forcats",
+  "gt"
 )
 
 # Load packages quietly
@@ -71,3 +79,7 @@ scale_color_cfa <- function(...) {
 scale_fill_cfa <- function(...) {
   scale_fill_manual(values = unlist(cfa_colors), ...)
 }
+
+# Add Source Sans 3 (used by Code for America)
+font_add_google("Source Sans 3", "sourcesans")
+showtext_auto()

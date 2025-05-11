@@ -14,23 +14,48 @@ format:
 source("R/setup.R")
 
 # Load data
-exercise_data <- read_csv(here("data", "exercise_data.csv")) |> clean_names()
+exercise_data <- read_csv(here("data", "exercise_data.csv")) |> 
+  clean_names() |> 
+    mutate(
+      zip = factor(zip),
+      household_size_bin = cut(household_size, breaks = c(0,1,2,3,5,10)),
+      doc_group = case_when(
+        docs_with_app > 0 & docs_after_app == 0 ~ "With App Only",
+        docs_with_app == 0 & docs_after_app > 0 ~ "After App Only",
+        docs_with_app > 0 & docs_after_app > 0 ~ "With + After",
+        docs_with_app == 0 & docs_after_app == 0 ~ "No Docs"
+        ) |> 
+      factor(levels = c("With App Only", "After App Only", "With + After", "No Docs"))
+  )
 ```
 
-## Reviewing the CalFresh Application
+# Purpose
+
+This exploratory analysis examines factors associated with CalFresh application approval among San Diego County users of [GetCalFresh.org](GetCalFresh.org). The goal is to:
+
+- Understand the barriers applicants may face
+- Identify features most associated with success
+- Highlight opportunities for improving user outcomes
+
+Research Questions: 
+
+- **What factors are most strongly associated with CalFresh approval?**
+- **Where might the process be improved to reduce unnecessary drop-off or denials?**
+
+# Application Walkthrough
 
 Before conducting any data analysis, I walked through the [GetCalFresh.org](https://www.getcalfresh.org) application process myself to better understand the applicant experience. This helped clarify what each variable in the dataset represents and how users encounter them in practice.
 
 ![CalFresh Survey Image](img/calfresh_survey.png)
 
-### Key Takeaways from the Application Experience
+## Key Takeaways from the Application Experience
 
 - **Multilingual Support** is available from the start (English, Spanish, Chinese, Vietnamese), with more preferred language options at the end of the process.
 - **The application is staged**, moving through: household info → income → expenses → contact details → confirmation.
 - **Applicants receive real-time feedback** on whether they may qualify, including notifications about potential expedited processing timelines.
 - **Submission does not require everything at once.** Document uploads and interviews can happen after submission, making these potential barriers to completion, not eligibility.
 
-### Final Survey Stages and What They Reveal
+## Final Survey Stages and What They Reveal
 
 Toward the end of the process, applicants are asked to:
 
@@ -41,7 +66,7 @@ Toward the end of the process, applicants are asked to:
 
 People can drop off at this stage — just before final submission — for reasons unrelated to eligibility, such as technical issues, unclear instructions, privacy concerns, immigration status concerns, or timing conflicts with the required interview.
 
-### Implications for Data Analysis
+## Implications for Data Analysis
 
 The user experience walk through shaped my interpretation of key fields:
 
@@ -49,37 +74,39 @@ The user experience walk through shaped my interpretation of key fields:
 - **`docs_with_app` vs. `docs_after_app`**: Reflect when documentation was uploaded through the platform. Counties may have received documents by other means (mail, fax, in person).
 - **`completion_time_mins`**: Captures elapsed time from start to finish, but may reflect interruptions or household complexity — not necessarily user effort or intent.
 
-## About the Data
+# About the Data
 
-This dataset includes ~2,000 CalFresh applications submitted through [GetCalFresh.org](https://www.getcalfresh.org/) in San Diego County. Each row represents an individual applicant and includes:
+This dataset includes \~2,000 CalFresh applications submitted through [GetCalFresh.org](https://www.getcalfresh.org/) in San Diego County. Each row represents an individual applicant and includes:
 
 - Demographic characteristics (household size, presence of children or older adults)
 - Application details (income, completion time, housing stability)
 - Interaction with the process (had an interview, uploaded documents)
 - Outcome: whether the application was **approved** (TRUE/FALSE)
 
-Note:
-- Approval status was provided by the county.
-- Interview completion and document submission are based only on what was captured through GetCalFresh.org, not all county channels.
+Notes: 
 
-## Research Questions
+- Interview completion is based on self-reported responses via SMS.
+- Document submission is based only on what was uploaded through GetCalFresh, not via other county channels like mail or in-person.
 
-This analysis is designed to answer:
+# Exploratory Data Analysis
 
-- **What characteristics are most strongly associated with CalFresh approval?**
-- **What might be done to improve application success rates?**
+Before modeling, I conducted an exploratory analysis to:
 
-## Data Codebook
+- Understand distributions and outliers
+- Identify missing values and potential data quality issues
+- Assess early relationships with the outcome (`approved`)
+- Check for multicollinearity and redundancy among predictors
+- Prepare variables for modeling and interpretation
+
+## Codebook
 
 To ground the analysis in a shared understanding of the data, I generated a structured codebook using a custom function from my `databookR` package. The codebook:
 
-- Lists all variables included in the dataset
+- Lists all variables in the dataset
 - Provides plain-language descriptions for each field
-- Summarizes data type, number of unique values, missingness, and key statistics
+- Summarizes data type, missingness, and key statistics
 
-This serves as both a reference and a check on data quality prior to modeling.
-
-```{r}
+```{r, include=TRUE}
 # Add descriptions to variables
 var_desc <- list(
   app_id               = "Unique identifier for each application",
@@ -96,32 +123,508 @@ var_desc <- list(
   approved             = "TRUE if the application was approved for CalFresh by the county"
 )
 
-# Factor variables
-exercise_data <- exercise_data |> 
-  mutate(zip = factor(zip))
-         
-
-# Use custom R package built by Mari Roberts
+# Generate codebook
 databookR::databook(exercise_data, var_descriptions = var_desc)
 ```
 
-This codebook confirms:
+Notes:
 
-- `had_interview` has substantial missingness, consistent with the platform limitations noted in the exercise.
-- `completion_time_mins`, `docs_with_app`, and `docs_after_app` have long-tailed distributions, as expected from process behavior.
+- `had_interview` has ~50% missingness, consistent with its self-reported source
+- Document counts (`docs_with_app`, `docs_after_app`) are zero-inflated and right-skewed
+- Only 4 missing values in demographic fields like `household_size`, `under18_n`, and `over_59_n.`
 
-## Exploratory Data Analysis
+## Missingness
+
+```{r}
+vis_miss(exercise_data)
+```
+
+Only had_interview contains meaningful missingness. All other fields are effectively complete.
+
+## Distribution of Key Variables
+
+I reviewed numeric variables to assess skew, outliers, and plausible ranges.
+
+```{r}
+# Custom binwidths for clarity
+binwidths <- list(
+  income = 250,
+  completion_time_mins = 40,
+  docs_with_app = 1,
+  docs_after_app = 1,
+  household_size = 1,
+  under18_n = 1,
+  over_59_n = 1
+)
+
+# Plotting function
+# Updated plot_var with optional filter for extreme values
+plot_var <- function(var, title = NULL, max_x = NULL) {
+  data <- exercise_data
+  if (!is.null(max_x)) {
+    data <- data |> filter(.data[[var]] <= max_x)
+  }
+
+  ggplot(data, aes(.data[[var]])) +
+    geom_histogram(
+      binwidth = binwidths[[var]],
+      fill = cfa_colors$blue,
+      color = "white",
+      na.rm = TRUE
+    ) +
+    labs(
+      title = title %||% var,
+      x = var,
+      y = "Count"
+    ) +
+    theme_minimal(base_family = "sourcesans", base_size = 14) +
+    theme(
+      plot.title = element_text(size = 16, face = "bold", margin = margin(b = 10)),
+      axis.title = element_text(size = 13),
+      axis.text = element_text(size = 12)
+    )
+}
 
 
+# Generate all plots
+wrap_plots(
+  plot_var("income", "Monthly Income"),
+  plot_var("completion_time_mins", "App Completion Time (Minutes)", max_x = 120),
+  plot_var("docs_with_app", "Docs Uploaded With App"),
+  plot_var("docs_after_app", "Docs Uploaded After App"),
+  plot_var("household_size", "Household Size"),
+  plot_var("under18_n", "Children in Household"),
+  plot_var("over_59_n", "Older Adults in Household"),
+  ncol = 2
+)
+```
 
+Notes:
 
+- **Income** is right-skewed. Most applicants report monthly income between $0–$500, consistent with SNAP targeting.
+- **Completion time** clusters under 20 minutes. Outliers over 2 hours likely reflect interruptions.
+- **Document** fields show many zeros — many applicants do not submit documents online.
+- **Household size** is small. Median = 1. Most applicants live alone or with one dependent.
+- **Child** and **older adult counts** are near-zero for most, but tails exist.
 
+## Correlation and Redundancy Check
 
+Before building a model, I assessed relationships between predictors to check for multicollinearity.
 
+Multicollinearity can:
 
+- Inflate coefficient variance
+- Obscure which features are truly associated with approval
+- Undermine interpretability — which is a important in this context
 
+I used two methods:
 
+- Pairwise correlations for numeric variables
+- Variance Inflation Factor (VIF) in a preliminary logistic regression
 
+```{r}
+# Subset numeric predictors
+num_vars <- exercise_data |>
+  select(income, household_size, under18_n, over_59_n, 
+         docs_with_app, docs_after_app, completion_time_mins)
+
+# Correlation matrix
+cor_matrix <- cor(num_vars, use = "complete.obs")
+
+# Visualize correlation matrix
+corrplot(cor_matrix, method = "circle", type = "upper", 
+         tl.cex = 0.8, tl.col = "black")
+```
+
+Notes:
+
+- `under18_n` and `household_size` are moderately correlated, which is expected.
+- Other variable pairs show low correlation, suggesting minimal redundancy.
+
+```{r}
+# Quick VIF check with basic logistic model
+vif_model <- glm(
+  approved ~ income + household_size + under18_n + over_59_n +
+    docs_with_app + docs_after_app + completion_time_mins + 
+    stable_housing + had_interview,
+  data = exercise_data,
+  family = binomial()
+)
+
+car::vif(vif_model)
+```
+- `household_size` (4.95) and `under18_n` (4.81) show moderate multicollinearity — expected due to their conceptual overlap.
+- All other variables have VIFs below 2.
+
+Both variables will likely be retained. While correlated, they reflect different eligibility factors: household size affects income limits, while the presence of children may affect processing or priority.
+
+## Approval Rates by Key Variables
+
+To identify process points that may shape outcomes, I calculated approval rates across key variables.
+
+This helped guide feature selection and surfaced potential intervention points early.
+
+```{r}
+# Function to summarize approval rates across any categorical variable
+fnc_approval_summary <- function(data, var) {
+  var_enquo <- rlang::enquo(var)
+
+  summarized <- data |>
+    dplyr::group_by(!!var_enquo) |>
+    dplyr::summarize(
+      n = dplyr::n(),
+      approval_rate = mean(approved, na.rm = TRUE),
+      .groups = "drop"
+    ) |>
+    dplyr::mutate(approval_rate = round(approval_rate * 100, 1))
+
+  min_rate <- min(summarized$approval_rate, na.rm = TRUE)
+
+  summarized |>
+    gt::gt() |>
+    gt::cols_label(
+      !!var_enquo := "Group",
+      n = "N",
+      approval_rate = "Approval Rate (%)"
+    ) |>
+    gt::fmt_number(columns = n, decimals = 0) |>
+    gt::tab_options(
+      table.font.names = "Source Sans 3",
+      column_labels.font.weight = "bold",
+      column_labels.background.color = "#ece9f9",
+      table.border.top.width = gt::px(0),
+      table.border.bottom.width = gt::px(0),
+      heading.title.font.size = 16,
+      data_row.padding = gt::px(4),
+      table.width = gt::pct(100)
+    ) |>
+    gt::tab_style(
+      style = gt::cell_text(color = "#AF121D", weight = "bold"),
+      locations = gt::cells_body(
+        columns = approval_rate,
+        rows = approval_rate == min_rate
+      )
+    ) 
+}
+```
+
+## Interview Completion
+
+```{r}
+fnc_approval_summary(exercise_data, had_interview)
+```
+- Applicants who reported completing the interview had higher approval rates than those who did not or whose response was missing.
+- This reinforces the interview as a critical point of potential drop-off.
+- Missing responses likely indicate no follow-up engagement — not necessarily ineligibility.
+
+## Document Submission Group
+
+```{r}
+fnc_approval_summary(exercise_data, doc_group)
+```
+
+- Approval was highest among applicants who submitted documents with their initial application.
+- Applicants who submitted documents only after applying had moderately lower rates.
+- The lowest approval rate (~44%) was among those who submitted nothing online.
+- Submitting documents early is associated with better outcomes — possibly due to faster case processing or stronger signals of follow-through.
+
+## Housing Stability
+
+```{r}
+fnc_approval_summary(exercise_data, stable_housing)
+```
+
+- Surprisingly, applicants reporting unstable housing had slightly higher approval rates.
+- This may reflect prioritized eligibility for those experiencing homelessness or precarious living situations.
+- Housing instability may increase likelihood of approval due to expedited or simplified eligibility pathways.  
+
+## Household Size (Binned)
+
+```{r}
+fnc_approval_summary(exercise_data, household_size_bin)
+```
+
+- Smaller households (1–2 people) had the highest approval rates.
+- Approval declined steadily for larger households.
+
+## ZIP Code Variation
+
+ZIP code can reflect structural factors that influence access: geography, internet connectivity, support, and even worker caseloads. While it’s not causal, it helps surface system-level variation.
+
+```{r}
+# Aggregate by ZIP (filter out sparse ZIPs)
+zip_summary <- exercise_data |>
+  group_by(zip) |>
+  summarize(
+    n = n(),
+    approval_rate = mean(approved, na.rm = TRUE)
+  ) |>
+  filter(n >= 10)
+
+# Bar chart
+ggplot(zip_summary, aes(x = fct_reorder(zip, approval_rate), y = approval_rate)) +
+  geom_col(fill = cfa_colors$purple) +
+  coord_flip() +
+  labs(
+    title = "Approval Rate by ZIP Code (≥10 applications)",
+    x = "ZIP Code",
+    y = "Approval Rate"
+  ) +
+  theme_minimal(base_family = "sourcesans", base_size = 14) +
+  theme(
+    plot.title = element_text(size = 16, face = "bold"),
+    axis.title = element_text(size = 13),
+    axis.text = element_text(size = 12)
+  )
+```
+
+Notes:
+
+- Approval rates vary from ~34% to ~69% across ZIP codes.
+- This range is large enough to suggest systematic differences, not just noise.
+- High- and low-performing ZIPs each have reasonable sample sizes, supporting this concern.
+
+## Statistical Test: Is ZIP Predictive of Approval?
+
+To formally assess whether approval rates differ significantly by ZIP, I ran a chi-squared test:
+
+```{r}
+zip_test <- exercise_data |>
+  filter(!is.na(approved), !is.na(zip)) |>
+  count(zip, approved) |>
+  pivot_wider(names_from = approved, values_from = n, values_fill = 0) |>
+  column_to_rownames("zip") |>
+  as.matrix() |>
+  chisq.test()
+
+zip_test
+```
+
+Interpretation:
+
+- The test is statistically significant at the 5% level.
+- We reject the null hypothesis: approval rates differ by ZIP in a non-random way.
+- This supports using ZIP as a signal for access disparities — even in the absence of ACS or other geospatial data.
+
+## Variable Preparation for Modeling
+
+Before modeling, I transformed several variables to improve interpretability, address skew, and reflect real-world program logic. These decisions were based on exploratory analysis and domain context from CalFresh eligibility and the GetCalFresh user flow.
+
+### Income
+
+- Created a new variable `income_500, which scales income in units of $500 for more interpretable model coefficients.
+- Example: A coefficient of –0.3 now means a 1-point drop in approval odds per $500 increase in monthly income.
+
+```{r}
+exercise_data <- exercise_data |>
+  mutate(income_500 = income / 500)
+```
+
+### Application Completion Time
+
+- Capped extreme values above 180 minutes to reduce the influence of long-tail outliers.
+- Created a binary flag long_app for applications that took over one hour, which may indicate interruptions or complexity.
+
+```{r}
+exercise_data <- exercise_data |>
+  mutate(
+    completion_time_capped = if_else(completion_time_mins > 180, 180, completion_time_mins),
+    long_app = completion_time_mins > 60
+  )
+```
+
+### Document Uploads
+
+- Created total_docs to capture total documentation effort across both stages (with and after application).
+- Added a binned version total_docs_bin to explore non-linear patterns in document count and approval.
+
+```{r}
+exercise_data <- exercise_data |>
+  mutate(
+    total_docs = docs_with_app + docs_after_app,
+    total_docs_bin = case_when(
+      total_docs == 0 ~ "0",
+      total_docs <= 2 ~ "1–2",
+      total_docs <= 5 ~ "3–5",
+      TRUE ~ "6+"
+    ) |> factor(levels = c("0", "1–2", "3–5", "6+"))
+  )
+```
+
+### Interview Completion (Self-Reported)
+
+- Re-coded had_interview into a two-level categorical variable, interview_completed:
+- "Completed" if applicant responded “yes” via SMS
+- "Not confirmed" for both “no” and missing, since missing likely means no engagement
+
+```{r}
+exercise_data <- exercise_data |>
+  mutate(interview_completed = case_when(
+    had_interview == TRUE ~ "Completed",
+    TRUE ~ "Not confirmed"
+  ) |> factor(levels = c("Not confirmed", "Completed")))
+```
+
+These transformations prepare the dataset for modeling while maintaining interpretability for stakeholders.
+
+# Logistic Regression
+
+To identify which factors are most associated with CalFresh approval, I fit a logistic regression model using variables informed by eligibility rules, application process steps, and exploratory data analysis.
+
+## Variable Selection Rationale
+
+Variables were selected based on relevance to both CalFresh policy and user experience. The model includes:
+
+- **Eligibility criteria:** income, household size, number of children, number of older adults
+- **User actions:** whether documents were submitted (with or after the application), whether the interview was completed
+- **Process indicators:** time spent on the application, housing stability
+
+I created and tested multiple versions of several predictors (e.g., binned document counts, total documentation effort, binary flags for long application times) and retained only the most interpretable versions for the main model. These alternate variables are available for subgroup or follow-up analyses.
+
+## Model Specification
+
+```{r}
+approval_model <- glm(
+  approved ~ income_500 + household_size + under18_n + over_59_n +
+    docs_with_app + docs_after_app + completion_time_capped +
+    stable_housing + interview_completed,
+  data = exercise_data,
+  family = binomial()
+)
+
+summary(approval_model)
+```
+### Coefficient Interpretation
+
+This logistic regression estimates the change in log-odds of approval for each predictor, holding other variables constant.
+
+Key observations:
+
+- **`income_500`**: Strong and statistically significant. A $500 increase in income is associated with a **0.41 decrease** in the log-odds of approval (**p < 0.001**).
+- **`interview_completedCompleted`**: The largest effect. Completing the interview increases the log-odds of approval by **1.10**, a strong and highly significant association (**p < 0.001**).
+- **`docs_with_app`** and **`docs_after_app`**: Both are positive and significant. More documents are associated with higher approval odds, especially those submitted with the application.
+- **`under18_n`**: Also significant. Each additional child increases log-odds of approval by **0.30**.
+- **`household_size`**, **`over_59_n`**, **`completion_time_capped`**, and **`stable_housing`** are not statistically significant (all **p > 0.05**) and show small effects.
+
+This means that once income, documentation, and interview completion are accounted for, these other variables do not explain meaningful additional variation in approval likelihood.
+
+## Odds Ratios and Confidence Intervals
+
+```{r}
+model_results <- broom::tidy(approval_model, exponentiate = TRUE, conf.int = TRUE)
+
+model_results |>
+  select(term, estimate, conf.low, conf.high, p.value) |>
+  mutate(across(where(is.numeric), round, 2)) |>
+  gt::gt() |>
+  gt::cols_label(
+    term = "Variable",
+    estimate = "Odds Ratio",
+    conf.low = "95% CI (Low)",
+    conf.high = "95% CI (High)",
+    p.value = "P-Value"
+  ) |>
+  gt::tab_options(
+    table.font.names = "Source Sans 3",
+    heading.title.font.size = 16
+  )
+```
+
+### Odds Ratio Interpretation
+
+- **Interview Completed**  
+  Applicants who completed the interview had **3x higher odds** of approval — the strongest predictor.
+
+- **Income**  
+  Every $500 increase in income reduced approval odds by **34%**, reflecting income-based eligibility rules.
+
+- **Documents Submitted With Application**  
+  Each additional document uploaded with the application increased approval odds by **12%**.
+
+- **Documents Submitted After Application**  
+  Still helpful — associated with an **8% increase** in approval odds per document.
+
+- **Children in Household**  
+  Each additional child increased approval odds by **35%**, likely due to eligibility prioritization.
+
+- **Not Significant**  
+  Household size, older adults, time to complete application, and housing status did not show meaningful associations after controlling for other factors.
+
+## Diagnostics
+
+After fitting the main logistic model, I checked for model fit and potential improvements:
+
+```{r}
+library(pscl)
+# Pseudo R-squared
+pscl::pR2(approval_model)
+
+# Hosmer-Lemeshow goodness-of-fit test
+ResourceSelection::hoslem.test(approval_model$y, fitted(approval_model))
+
+# ROC curve and AUC
+library(pROC)
+# Get only rows used in the model
+model_data <- model.frame(approval_model)
+
+# Response and predicted probabilities
+actual <- model_data$approved
+predicted <- fitted(approval_model)
+
+# Compute ROC
+roc_obj <- pROC::roc(actual, predicted)
+pROC::auc(roc_obj)
+plot(roc_obj, col = "#2b1a78", lwd = 2)
+```
+- **McFadden R² = 0.15**
+The model explains 15% of the variation in approval — typical for survey or behavioral data???
+
+- **Hosmer-Lemeshow p = 0.34**
+No evidence of poor fit. The model’s predicted probabilities align well with observed outcomes.
+
+- **AUC = 0.76 (76%)**
+The model correctly ranks an approved case higher than a denied one 76% of the time — a good result.
+
+- **Overall takeaway:**
+The model is a strong starting point — interpretable, statistically sound, and reasonably accurate.
+
+# Predicted Probabilities
+
+To make the model results more actionable, I calculated predicted probabilities of approval based on key variables.
+
+```{r}
+# Add predicted probabilities to dataset
+model_data <- model.frame(approval_model) |>
+  mutate(predicted_prob = predict(approval_model, type = "response"))
+```
+
+```{r}
+ggplot(model_data, aes(x = predicted_prob)) +
+  geom_histogram(fill = cfa_colors$purple, color = "white", bins = 30) +
+  labs(
+    title = "Predicted Probability of CalFresh Approval",
+    x = "Predicted Probability",
+    y = "Number of Applicants"
+  ) +
+  theme_minimal(base_family = "sourcesans", base_size = 14)
+```
+
+- Most applicants fall between 0.30 and 0.80 predicted probability of approval.
+- Very few applicants have predicted probabilities near 0 or 1.
+- This suggests that approval is influenced by multiple factors, not a single rule or threshold.
+- Stakeholders can use this range to identify applicants who may benefit from support, especially those in the 0.4–0.6 range.
+
+## Example: Effect of Interview Completion
+
+```{r}
+model_data |>
+  group_by(interview_completed) |>
+  summarize(mean_pred_prob = round(mean(predicted_prob), 2), n = n())
+```
+- Applicants who completed the interview had a 72% average chance of being approved.
+- Those who did not complete or did not confirm the interview had just a 50% chance.
+- This 22 percentage point difference shows how critical the interview step is.
+- Supporting applicants through the interview process — with reminders, assistance, or flexible scheduling — could meaningfully improve approval rates.
 
 
 
