@@ -18,10 +18,6 @@
 library(databookR)
 
 # Load additional libraries 
-library(tidyverse)
-library(janitor)
-library(quarto)
-
 required_packages <- c(
   "tidyverse", 
   "janitor",
@@ -34,7 +30,9 @@ required_packages <- c(
   "htmlwidgets",
   "dplyr",
   "stringr",
-  "scales"
+  "scales",
+  "here",
+  "broom"
 )
 
 # Load packages quietly

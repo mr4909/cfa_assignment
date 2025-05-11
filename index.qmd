@@ -26,9 +26,8 @@ This project aims to surface key patterns in approval outcomes and suggest poten
 
 ## Key Questions
 
-- What variables are most predictive of CalFresh approval?
-- Are there clear barriers (e.g., lack of interview, missing documents)?
-- Can any changes to the process improve outcomes, especially for vulnerable applicants?
+1. **What factors are most strongly associated with CalFresh approval?**
+2. **Where would you look next to improve the application process?**
 
 ## Project Links
 

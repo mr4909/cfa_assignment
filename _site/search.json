@@ -1,5 +1,68 @@
 [
   {
+    "objectID": "key_findings.html#where-would-you-look-next-to-improve-the-application-process",
+    "href": "key_findings.html#where-would-you-look-next-to-improve-the-application-process",
+    "title": "Key Findings",
+    "section": "Where would you look next to improve the application process?",
+    "text": "Where would you look next to improve the application process?"
+  },
+  {
+    "objectID": "contact.html",
+    "href": "contact.html",
+    "title": "Contact",
+    "section": "",
+    "text": "For questions or additional information, feel free to contact:\nMari Roberts\nProject Author\nEmail: marialexandriaroberts@gmail.com\nGitHub: @mr4909"
+  },
+  {
+    "objectID": "contact.html#team",
+    "href": "contact.html#team",
+    "title": "Contact",
+    "section": "",
+    "text": "For questions or additional information, feel free to contact:\nMari Roberts\nProject Author\nEmail: marialexandriaroberts@gmail.com\nGitHub: @mr4909"
+  },
+  {
+    "objectID": "analysis.html",
+    "href": "analysis.html",
+    "title": "Analysis",
+    "section": "",
+    "text": "Before conducting any data analysis, I walked through the GetCalFresh.org application process myself to better understand the applicant experience. This helped clarify what each variable in the dataset represents and how users encounter them in practice.\n\n\n\nCalFresh Survey Image\n\n\n\n\n\nMultilingual Support is available from the start (English, Spanish, Chinese, Vietnamese), with more preferred language options at the end of the process.\nThe application is staged, moving through: household info → income → expenses → contact details → confirmation.\nApplicants receive real-time feedback on whether they may qualify, including notifications about potential expedited processing timelines.\nSubmission does not require everything at once. Document uploads and interviews can happen after submission, making these potential barriers to completion, not eligibility.\n\n\n\n\nToward the end of the process, applicants are asked to:\n\nConfirm contact information (phone, email, language preferences)\nSelect mailing address options — including a note that a mailing address is required for benefit delivery but can be substituted with PO boxes or addresses of trusted third parties\nProvide interview availability and request accommodations (e.g., interpreters, help with disabilities)\nOpt into reminders via SMS and email, which are used to prompt follow-up actions\n\nPeople can drop off at this stage — just before final submission — for reasons unrelated to eligibility, such as technical issues, unclear instructions, privacy concerns, immigration status concerns, or timing conflicts with the required interview.\n\n\n\nThe user experience walk through shaped my interpretation of key fields:\n\nhad_interview: Based on a follow-up text message response, not a verified system event. Missing values do not confirm no interview — just that it wasn’t captured via GetCalFresh.\ndocs_with_app vs. docs_after_app: Reflect when documentation was uploaded through the platform. Counties may have received documents by other means (mail, fax, in person).\ncompletion_time_mins: Captures elapsed time from start to finish, but may reflect interruptions or household complexity — not necessarily user effort or intent."
+  },
+  {
+    "objectID": "analysis.html#reviewing-the-calfresh-application",
+    "href": "analysis.html#reviewing-the-calfresh-application",
+    "title": "Analysis",
+    "section": "",
+    "text": "Before conducting any data analysis, I walked through the GetCalFresh.org application process myself to better understand the applicant experience. This helped clarify what each variable in the dataset represents and how users encounter them in practice.\n\n\n\nCalFresh Survey Image\n\n\n\n\n\nMultilingual Support is available from the start (English, Spanish, Chinese, Vietnamese), with more preferred language options at the end of the process.\nThe application is staged, moving through: household info → income → expenses → contact details → confirmation.\nApplicants receive real-time feedback on whether they may qualify, including notifications about potential expedited processing timelines.\nSubmission does not require everything at once. Document uploads and interviews can happen after submission, making these potential barriers to completion, not eligibility.\n\n\n\n\nToward the end of the process, applicants are asked to:\n\nConfirm contact information (phone, email, language preferences)\nSelect mailing address options — including a note that a mailing address is required for benefit delivery but can be substituted with PO boxes or addresses of trusted third parties\nProvide interview availability and request accommodations (e.g., interpreters, help with disabilities)\nOpt into reminders via SMS and email, which are used to prompt follow-up actions\n\nPeople can drop off at this stage — just before final submission — for reasons unrelated to eligibility, such as technical issues, unclear instructions, privacy concerns, immigration status concerns, or timing conflicts with the required interview.\n\n\n\nThe user experience walk through shaped my interpretation of key fields:\n\nhad_interview: Based on a follow-up text message response, not a verified system event. Missing values do not confirm no interview — just that it wasn’t captured via GetCalFresh.\ndocs_with_app vs. docs_after_app: Reflect when documentation was uploaded through the platform. Counties may have received documents by other means (mail, fax, in person).\ncompletion_time_mins: Captures elapsed time from start to finish, but may reflect interruptions or household complexity — not necessarily user effort or intent."
+  },
+  {
+    "objectID": "analysis.html#about-the-data",
+    "href": "analysis.html#about-the-data",
+    "title": "Analysis",
+    "section": "About the Data",
+    "text": "About the Data\nThis dataset includes ~2,000 CalFresh applications submitted through GetCalFresh.org in San Diego County. Each row represents an individual applicant and includes:\n\nDemographic characteristics (household size, presence of children or older adults)\nApplication details (income, completion time, housing stability)\nInteraction with the process (had an interview, uploaded documents)\nOutcome: whether the application was approved (TRUE/FALSE)\n\nNote: - Approval status was provided by the county. - Interview completion and document submission are based only on what was captured through GetCalFresh.org, not all county channels."
+  },
+  {
+    "objectID": "analysis.html#research-questions",
+    "href": "analysis.html#research-questions",
+    "title": "Analysis",
+    "section": "Research Questions",
+    "text": "Research Questions\nThis analysis is designed to answer:\n\nWhat characteristics are most strongly associated with CalFresh approval?\nWhat might be done to improve application success rates?"
+  },
+  {
+    "objectID": "analysis.html#data-codebook",
+    "href": "analysis.html#data-codebook",
+    "title": "Analysis",
+    "section": "Data Codebook",
+    "text": "Data Codebook\nTo ground the analysis in a shared understanding of the data, I generated a structured codebook using a custom function from my databookR package. The codebook:\n\nLists all variables included in the dataset\nProvides plain-language descriptions for each field\nSummarizes data type, number of unique values, missingness, and key statistics\n\nThis serves as both a reference and a check on data quality prior to modeling.\n\n\nCode\n# Add descriptions to variables\nvar_desc &lt;- list(\n  app_id               = \"Unique identifier for each application\",\n  completion_time_mins = \"Time taken to complete the application, in minutes\",\n  household_size       = \"Number of people applying for CalFresh in the household\",\n  income               = \"Total household income in the last 30 days (randomized slightly for privacy)\",\n  docs_with_app        = \"Count of verification documents uploaded with the initial application\",\n  docs_after_app       = \"Count of verification documents uploaded after application (via Later Docs)\",\n  under18_n            = \"Number of children age 17 or younger included in the application\",\n  over_59_n            = \"Number of adults age 60 or older included in the application\",\n  stable_housing       = \"TRUE if applicant rents or owns the place they sleep; FALSE otherwise\",\n  had_interview        = \"TRUE if applicant reported completing the required interview; may be missing\",\n  zip                  = \"ZIP code where the applicant lives or stays\",\n  approved             = \"TRUE if the application was approved for CalFresh by the county\"\n)\n\n# Factor variables\nexercise_data &lt;- exercise_data |&gt; \n  mutate(zip = factor(zip))\n         \n\n# Use custom R package built by Mari Roberts\ndatabookR::databook(exercise_data, var_descriptions = var_desc)\n\n\n\n\n\n\n\n\n\n\n\n\n\nVariable Name\nVariable Description\nVariable Type\nNumber of Unique Values\nPercentage Missing\nStatistics\n\n\n\n\napp_id\nUnique identifier for each application\nnumeric\n2046\n0.0%\nMin: 1.0\nAvg: 38866.9\nMedian: 38066.5\nMax: 110550.0\nSD: 25305.4\n\n\ncompletion_time_mins\nTime taken to complete the application, in minutes\nnumeric\n2046\n0.0%\nMin: 2.3\nAvg: 21.4\nMedian: 10.4\nMax: 8551.8\nSD: 195.7\n\n\nhousehold_size\nNumber of people applying for CalFresh in the household\nnumeric\n10\n0.2%\nMin: 1.0\nAvg: 1.8\nMedian: 1.0\nMax: 12.0\nSD: 1.3\n\n\nincome\nTotal household income in the last 30 days (randomized slightly for privacy)\nnumeric\n888\n0.0%\nMin: 0.0\nAvg: 936.0\nMedian: 270.0\nMax: 9779.0\nSD: 1228.9\n\n\ndocs_with_app\nCount of verification documents uploaded with the initial application\nnumeric\n19\n0.0%\nMin: 0.0\nAvg: 1.3\nMedian: 0.0\nMax: 25.0\nSD: 2.2\n\n\ndocs_after_app\nCount of verification documents uploaded after application (via Later Docs)\nnumeric\n20\n0.0%\nMin: 0.0\nAvg: 0.8\nMedian: 0.0\nMax: 29.0\nSD: 2.1\n\n\nunder18_n\nNumber of children age 17 or younger included in the application\nnumeric\n7\n0.2%\nMin: 0.0\nAvg: 0.5\nMedian: 0.0\nMax: 6.0\nSD: 1.0\n\n\nover_59_n\nNumber of adults age 60 or older included in the application\nnumeric\n3\n0.2%\nMin: 0.0\nAvg: 0.1\nMedian: 0.0\nMax: 2.0\nSD: 0.3\n\n\nstable_housing\nTRUE if applicant rents or owns the place they sleep; FALSE otherwise\nlogical\n2\n0.0%\nTRUE: 1186 (58.0%)\nFALSE: 860 (42.0%)\n\n\nhad_interview\nTRUE if applicant reported completing the required interview; may be missing\nlogical\n2\n49.7%\nTRUE: 595 (57.8%)\nFALSE: 434 (42.2%)\n\n\nzip\nZIP code where the applicant lives or stays\nfactor\n28\n0.0%\nTop 5 Categories:\n92105 = 162 (7.9%)\n92114 = 157 (7.7%)\n92113 = 155 (7.6%)\n92115 = 133 (6.5%)\n92154 = 128 (6.3%)\n\n\napproved\nTRUE if the application was approved for CalFresh by the county\nlogical\n2\n0.0%\nTRUE: 1148 (56.1%)\nFALSE: 898 (43.9%)\n\n\n\n\n\n\n\nThis codebook confirms:\n\nhad_interview has substantial missingness, consistent with the platform limitations noted in the exercise.\ncompletion_time_mins, docs_with_app, and docs_after_app have long-tailed distributions, as expected from process behavior."
+  },
+  {
+    "objectID": "analysis.html#exploratory-data-analysis",
+    "href": "analysis.html#exploratory-data-analysis",
+    "title": "Analysis",
+    "section": "Exploratory Data Analysis",
+    "text": "Exploratory Data Analysis"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "CalFresh SNAP Application Analysis",
@@ -25,7 +88,7 @@
     "href": "index.html#key-questions",
     "title": "CalFresh SNAP Application Analysis",
     "section": "Key Questions",
-    "text": "Key Questions\n\nWhat variables are most predictive of CalFresh approval?\nAre there clear barriers (e.g., lack of interview, missing documents)?\nCan any changes to the process improve outcomes, especially for vulnerable applicants?"
+    "text": "Key Questions\n\nWhat factors are most strongly associated with CalFresh approval?\nWhere would you look next to improve the application process?"
   },
   {
     "objectID": "index.html#project-links",
@@ -40,173 +103,5 @@
     "title": "CalFresh SNAP Application Analysis",
     "section": "Stakeholders",
     "text": "Stakeholders\nThis analysis models the collaborative work that would involve:\n\nCode for America’s GetCalFresh team: Program designers and policy advocates.\nCounty Human Services Agencies: Decision-makers and data providers.\nApplicants: The core user base, especially those facing structural barriers to access."
-  },
-  {
-    "objectID": "data_codebooks.html",
-    "href": "data_codebooks.html",
-    "title": "Codebook",
-    "section": "",
-    "text": "This page provides definitions and context for each variable in the CalFresh application dataset used in the Code for America data science exercise."
-  },
-  {
-    "objectID": "data_codebooks.html#about-this-dataset",
-    "href": "data_codebooks.html#about-this-dataset",
-    "title": "Codebook",
-    "section": "About This Dataset",
-    "text": "About This Dataset\nThis dataset comes from GetCalFresh.org, a service that helps Californians apply for CalFresh (SNAP) benefits online. The records reflect roughly 2,000 applications submitted in San Diego County, including applicant-submitted data, survey follow-up responses, and county-reported outcomes.\nApplicants must:\n\nMeet income eligibility based on federal poverty thresholds (adjusted for household size).\nComplete a required interview (by phone or in-person).\nSubmit verification documents either with their application or afterward.\n\nNote: This data reflects what Code for America collects through GetCalFresh. It does not capture everything a county caseworker uses to make eligibility decisions (e.g., some documents may be mailed or interviews may happen later).\nThe goal of the associated exercise is to identify factors associated with CalFresh approval, and consider how application design or support could be improved based on the findings."
-  },
-  {
-    "objectID": "data_codebooks.html#codebook",
-    "href": "data_codebooks.html#codebook",
-    "title": "Codebook",
-    "section": "Codebook",
-    "text": "Codebook\nUse the table below to look up definitions and context for each variable in the dataset. This may be useful when checking for missing data or exploring the data structure.\n\n\nCode\n# Add descriptions to variables\nvar_desc &lt;- list(\n  app_id               = \"Unique identifier for each application\",\n  completion_time_mins = \"Time taken to complete the application, in minutes\",\n  household_size       = \"Number of people applying for CalFresh in the household\",\n  income               = \"Total household income in the last 30 days (randomized slightly for privacy)\",\n  docs_with_app        = \"Count of verification documents uploaded with the initial application\",\n  docs_after_app       = \"Count of verification documents uploaded after application (via Later Docs)\",\n  under18_n            = \"Number of children age 17 or younger included in the application\",\n  over_59_n            = \"Number of adults age 60 or older included in the application\",\n  stable_housing       = \"TRUE if applicant rents or owns the place they sleep; FALSE otherwise\",\n  had_interview        = \"TRUE if applicant reported completing the required interview; may be missing\",\n  zip                  = \"ZIP code where the applicant lives or stays\",\n  approved             = \"TRUE if the application was approved for CalFresh by the county\"\n)\n\n# Use custom R package built by Mari Roberts\ndatabookR::databook(exercise_data, var_descriptions = var_desc)\n\n\n\n\n\n\n\n\n\n\n\n\n\nVariable Name\nVariable Description\nVariable Type\nNumber of Unique Values\nPercentage Missing\nStatistics\n\n\n\n\napp_id\nUnique identifier for each application\nnumeric\n2046\n0.0%\nMin: 1.0\nAvg: 38866.9\nMedian: 38066.5\nMax: 110550.0\nSD: 25305.4\n\n\ncompletion_time_mins\nTime taken to complete the application, in minutes\nnumeric\n2046\n0.0%\nMin: 2.3\nAvg: 21.4\nMedian: 10.4\nMax: 8551.8\nSD: 195.7\n\n\nhousehold_size\nNumber of people applying for CalFresh in the household\nnumeric\n10\n0.2%\nMin: 1.0\nAvg: 1.8\nMedian: 1.0\nMax: 12.0\nSD: 1.3\n\n\nincome\nTotal household income in the last 30 days (randomized slightly for privacy)\nnumeric\n888\n0.0%\nMin: 0.0\nAvg: 936.0\nMedian: 270.0\nMax: 9779.0\nSD: 1228.9\n\n\ndocs_with_app\nCount of verification documents uploaded with the initial application\nnumeric\n19\n0.0%\nMin: 0.0\nAvg: 1.3\nMedian: 0.0\nMax: 25.0\nSD: 2.2\n\n\ndocs_after_app\nCount of verification documents uploaded after application (via Later Docs)\nnumeric\n20\n0.0%\nMin: 0.0\nAvg: 0.8\nMedian: 0.0\nMax: 29.0\nSD: 2.1\n\n\nunder18_n\nNumber of children age 17 or younger included in the application\nnumeric\n7\n0.2%\nMin: 0.0\nAvg: 0.5\nMedian: 0.0\nMax: 6.0\nSD: 1.0\n\n\nover_59_n\nNumber of adults age 60 or older included in the application\nnumeric\n3\n0.2%\nMin: 0.0\nAvg: 0.1\nMedian: 0.0\nMax: 2.0\nSD: 0.3\n\n\nstable_housing\nTRUE if applicant rents or owns the place they sleep; FALSE otherwise\nlogical\n2\n0.0%\nTRUE: 1186 (58.0%)\nFALSE: 860 (42.0%)\n\n\nhad_interview\nTRUE if applicant reported completing the required interview; may be missing\nlogical\n2\n49.7%\nTRUE: 595 (57.8%)\nFALSE: 434 (42.2%)\n\n\nzip\nZIP code where the applicant lives or stays\nnumeric\n28\n0.0%\nMin: 92101.0\nAvg: 92117.9\nMedian: 92114.0\nMax: 92173.0\nSD: 17.1\n\n\napproved\nTRUE if the application was approved for CalFresh by the county\nlogical\n2\n0.0%\nTRUE: 1148 (56.1%)\nFALSE: 898 (43.9%)"
-  },
-  {
-    "objectID": "analysis_plan.html",
-    "href": "analysis_plan.html",
-    "title": "Analysis Plan",
-    "section": "",
-    "text": "This analysis plan is for the Code for America take home assignment: identifying factors positively and negatively associated with CalFresh (SNAP) approval based on application data collected through GetCalFresh.org. The dataset includes ~2,000 records from San Diego County and spans application characteristics, document submission behavior, interview status, and approval outcomes."
-  },
-  {
-    "objectID": "analysis_plan.html#objective",
-    "href": "analysis_plan.html#objective",
-    "title": "Analysis Plan",
-    "section": "",
-    "text": "This analysis plan is for the Code for America take home assignment: identifying factors positively and negatively associated with CalFresh (SNAP) approval based on application data collected through GetCalFresh.org. The dataset includes ~2,000 records from San Diego County and spans application characteristics, document submission behavior, interview status, and approval outcomes."
-  },
-  {
-    "objectID": "analysis_plan.html#key-questions",
-    "href": "analysis_plan.html#key-questions",
-    "title": "Analysis Plan",
-    "section": "Key Questions",
-    "text": "Key Questions\n\nWhat factors are most strongly associated with CalFresh approval?\n\nWhere would you look next to improve the application process?\n\nAdditional sub-questions I will explore:\n\nHow do interview completion and document submission timing relate to approval?\nAre there interaction effects between eligibility and process variables (e.g., income × housing)?\nDoes approval likelihood vary by geography, and what ZIP-level characteristics might help explain it?"
-  },
-  {
-    "objectID": "analysis_plan.html#variables-of-interest",
-    "href": "analysis_plan.html#variables-of-interest",
-    "title": "Analysis Plan",
-    "section": "Variables of Interest",
-    "text": "Variables of Interest\n\nApplication-Level Variables\n\nincome: Monthly household income (eligibility driver)\nhousehold_size: Number of people applying\ncompletion_time_mins: Total time to complete application\ndocs_with_app, docs_after_app: Document submission timing\nhad_interview: Whether interview was reportedly completed\nstable_housing: Binary indicator for housing status\nunder18_n, over_59_n: Household age composition\nzip: Location of applicant\napproved: Outcome variable (1 = approved, 0 = not approved)\n\n\n\nSupplemental Variables (ZIP-level Census Merge)\nTo enrich geographic context, I will merge Census data by ZIP to add:\n\n% below poverty line\n\n% foreign-born\n\n% limited English proficiency\n\nRacial/ethnic composition (% Hispanic, % Black, etc.)"
-  },
-  {
-    "objectID": "analysis_plan.html#analytical-approach",
-    "href": "analysis_plan.html#analytical-approach",
-    "title": "Analysis Plan",
-    "section": "Analytical Approach",
-    "text": "Analytical Approach\n\nStep 1: Data Preparation\n\nClean and validate variable types\nSummarize distributions and identify missing values\nFlag variables with high missingness (had_interview) for special handling\nMerge ZIP-level demographic data for exploratory mapping and adjustment\n\n\n\nStep 2: Exploratory Analysis\n\nVisualize approval rates by binary/categorical variables\nAssess document and interview completion behavior by approval status\nIdentify any ZIP codes with unusually low or high approval rates\nCorrelation checks to avoid multicollinearity in modeling\n\n\n\nStep 3: Logistic Regression Modeling\n\nBaseline model: Includes income, household_size, and key process variables\nExpanded model: Adds stable_housing, age group composition, and completion_time_mins\nInteraction model: Tests conditional effects (e.g., income × housing)\nZIP-adjusted model: Includes ZIP-level controls to account for geographic variation\n\nAll models will be assessed based on interpretability, model fit (AIC/BIC), and variance explained (pseudo R²)."
-  },
-  {
-    "objectID": "analysis_plan.html#deliverables-per-exercise-instructions",
-    "href": "analysis_plan.html#deliverables-per-exercise-instructions",
-    "title": "Analysis Plan",
-    "section": "Deliverables (per exercise instructions)",
-    "text": "Deliverables (per exercise instructions)\n\nA clear, reproducible analysis pipeline (R code)\nAt least one regression results table with explanatory text\n2–4 paragraphs summarizing methods, results, and interpretation\n1–2 paragraphs proposing practical areas for improvement based on findings\n\nAdditional optional outputs (value-adds):\n\nZIP-level heatmap of approval rates\nPredicted probabilities across subgroups (e.g., with/without interview)\nMarginal effects plots to visualize key predictors"
-  },
-  {
-    "objectID": "analysis_plan.html#assumptions-and-limitations",
-    "href": "analysis_plan.html#assumptions-and-limitations",
-    "title": "Analysis Plan",
-    "section": "Assumptions and Limitations",
-    "text": "Assumptions and Limitations\n\nMissing had_interview values do not necessarily indicate non-completion — caution is needed in interpretation.\nApplicants may submit documents outside GetCalFresh, which we cannot observe.\nZIP-level Census variables are proxies for place-based context, not individual characteristics.\nApproval data are county-provided and assumed to be accurate."
-  },
-  {
-    "objectID": "analysis_plan.html#next-steps-for-deeper-insight",
-    "href": "analysis_plan.html#next-steps-for-deeper-insight",
-    "title": "Analysis Plan",
-    "section": "Next Steps for Deeper Insight",
-    "text": "Next Steps for Deeper Insight\nIf this were a full engagement, I would:\n\nConduct qualitative interviews to understand why people don’t complete interviews or submit documents\nTBD"
-  },
-  {
-    "objectID": "analysis.html",
-    "href": "analysis.html",
-    "title": "Analysis",
-    "section": "",
-    "text": "For more details about the analysis plan and structure of the data:\n\nAnalysis Plan\nCodebook"
-  },
-  {
-    "objectID": "analysis.html#about-the-data",
-    "href": "analysis.html#about-the-data",
-    "title": "Analysis",
-    "section": "",
-    "text": "For more details about the analysis plan and structure of the data:\n\nAnalysis Plan\nCodebook"
-  },
-  {
-    "objectID": "analysis.html#data-overview",
-    "href": "analysis.html#data-overview",
-    "title": "Analysis",
-    "section": "Data Overview",
-    "text": "Data Overview"
-  },
-  {
-    "objectID": "analysis.html#descriptive-analysis",
-    "href": "analysis.html#descriptive-analysis",
-    "title": "Analysis",
-    "section": "Descriptive Analysis",
-    "text": "Descriptive Analysis"
-  },
-  {
-    "objectID": "analysis.html#logistic-regression",
-    "href": "analysis.html#logistic-regression",
-    "title": "Analysis",
-    "section": "Logistic Regression",
-    "text": "Logistic Regression"
-  },
-  {
-    "objectID": "analysis.html#results",
-    "href": "analysis.html#results",
-    "title": "Analysis",
-    "section": "Results",
-    "text": "Results"
-  },
-  {
-    "objectID": "analysis.html#discussion",
-    "href": "analysis.html#discussion",
-    "title": "Analysis",
-    "section": "Discussion",
-    "text": "Discussion"
-  },
-  {
-    "objectID": "contact.html",
-    "href": "contact.html",
-    "title": "Contact",
-    "section": "",
-    "text": "Information for contacting project team members."
-  },
-  {
-    "objectID": "contact.html#about-this-page",
-    "href": "contact.html#about-this-page",
-    "title": "Contact",
-    "section": "",
-    "text": "Information for contacting project team members."
-  },
-  {
-    "objectID": "contact.html#team",
-    "href": "contact.html#team",
-    "title": "Contact",
-    "section": "Team",
-    "text": "Team\nNames and roles of the project team members."
-  },
-  {
-    "objectID": "contact.html#reach-out",
-    "href": "contact.html#reach-out",
-    "title": "Contact",
-    "section": "Reach Out",
-    "text": "Reach Out\nContact details for further communication."
-  },
-  {
-    "objectID": "executive_summary.html",
-    "href": "executive_summary.html",
-    "title": "Executive Summary",
-    "section": "",
-    "text": "What factors are most strongly associated with CalFresh approval?\n\nTBD\n\nWhere would you look next to improve the application process?\n\nTBD"
-  },
-  {
-    "objectID": "executive_summary.html#executive-summary",
-    "href": "executive_summary.html#executive-summary",
-    "title": "Executive Summary",
-    "section": "",
-    "text": "What factors are most strongly associated with CalFresh approval?\n\nTBD\n\nWhere would you look next to improve the application process?\n\nTBD"
   }
 ]

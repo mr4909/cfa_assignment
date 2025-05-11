@@ -10,11 +10,12 @@ format:
     toc: TRUE
 ---
 
-## About This Page
-Information for contacting project team members.
-
 ## Team
-Names and roles of the project team members.
 
-## Reach Out
-Contact details for further communication.
+For questions or additional information, feel free to contact:
+
+**Mari Roberts**  
+Project Author
+
+**Email**: [marialexandriaroberts@gmail.com](marialexandriaroberts@gmail.com)  
+**GitHub**: [@mr4909](https://github.com/mr4909)  

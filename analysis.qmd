@@ -13,30 +13,115 @@ format:
 ```{r setup, include=FALSE}
 source("R/setup.R")
 
-# Import exercise data
-exercise_data <- read_csv("D:/code_for_america/exercise_data.csv")
+# Load data
+exercise_data <- read_csv(here("data", "exercise_data.csv")) |> clean_names()
 ```
+
+## Reviewing the CalFresh Application
+
+Before conducting any data analysis, I walked through the [GetCalFresh.org](https://www.getcalfresh.org) application process myself to better understand the applicant experience. This helped clarify what each variable in the dataset represents and how users encounter them in practice.
+
+![CalFresh Survey Image](img/calfresh_survey.png)
+
+### Key Takeaways from the Application Experience
+
+- **Multilingual Support** is available from the start (English, Spanish, Chinese, Vietnamese), with more preferred language options at the end of the process.
+- **The application is staged**, moving through: household info → income → expenses → contact details → confirmation.
+- **Applicants receive real-time feedback** on whether they may qualify, including notifications about potential expedited processing timelines.
+- **Submission does not require everything at once.** Document uploads and interviews can happen after submission, making these potential barriers to completion, not eligibility.
+
+### Final Survey Stages and What They Reveal
+
+Toward the end of the process, applicants are asked to:
+
+- **Confirm contact information** (phone, email, language preferences)
+- **Select mailing address options** — including a note that a mailing address is required for benefit delivery but can be substituted with PO boxes or addresses of trusted third parties
+- **Provide interview availability and request accommodations** (e.g., interpreters, help with disabilities)
+- **Opt into reminders** via SMS and email, which are used to prompt follow-up actions
+
+People can drop off at this stage — just before final submission — for reasons unrelated to eligibility, such as technical issues, unclear instructions, privacy concerns, immigration status concerns, or timing conflicts with the required interview.
+
+### Implications for Data Analysis
+
+The user experience walk through shaped my interpretation of key fields:
+
+- **`had_interview`**: Based on a follow-up text message response, not a verified system event. Missing values do not confirm no interview — just that it wasn’t captured via GetCalFresh.
+- **`docs_with_app` vs. `docs_after_app`**: Reflect when documentation was uploaded through the platform. Counties may have received documents by other means (mail, fax, in person).
+- **`completion_time_mins`**: Captures elapsed time from start to finish, but may reflect interruptions or household complexity — not necessarily user effort or intent.
 
 ## About the Data
 
-For more details about the analysis plan and structure of the data:
+This dataset includes ~2,000 CalFresh applications submitted through [GetCalFresh.org](https://www.getcalfresh.org/) in San Diego County. Each row represents an individual applicant and includes:
 
-- [Analysis Plan](https://calfresh-cfa-exercise.netlify.app/analysis_plan)
-- [Codebook](https://calfresh-cfa-exercise.netlify.app/data_codebooks)
+- Demographic characteristics (household size, presence of children or older adults)
+- Application details (income, completion time, housing stability)
+- Interaction with the process (had an interview, uploaded documents)
+- Outcome: whether the application was **approved** (TRUE/FALSE)
 
-## Data Overview
+Note:
+- Approval status was provided by the county.
+- Interview completion and document submission are based only on what was captured through GetCalFresh.org, not all county channels.
+
+## Research Questions
+
+This analysis is designed to answer:
+
+- **What characteristics are most strongly associated with CalFresh approval?**
+- **What might be done to improve application success rates?**
+
+## Data Codebook
+
+To ground the analysis in a shared understanding of the data, I generated a structured codebook using a custom function from my `databookR` package. The codebook:
+
+- Lists all variables included in the dataset
+- Provides plain-language descriptions for each field
+- Summarizes data type, number of unique values, missingness, and key statistics
+
+This serves as both a reference and a check on data quality prior to modeling.
+
+```{r}
+# Add descriptions to variables
+var_desc <- list(
+  app_id               = "Unique identifier for each application",
+  completion_time_mins = "Time taken to complete the application, in minutes",
+  household_size       = "Number of people applying for CalFresh in the household",
+  income               = "Total household income in the last 30 days (randomized slightly for privacy)",
+  docs_with_app        = "Count of verification documents uploaded with the initial application",
+  docs_after_app       = "Count of verification documents uploaded after application (via Later Docs)",
+  under18_n            = "Number of children age 17 or younger included in the application",
+  over_59_n            = "Number of adults age 60 or older included in the application",
+  stable_housing       = "TRUE if applicant rents or owns the place they sleep; FALSE otherwise",
+  had_interview        = "TRUE if applicant reported completing the required interview; may be missing",
+  zip                  = "ZIP code where the applicant lives or stays",
+  approved             = "TRUE if the application was approved for CalFresh by the county"
+)
+
+# Factor variables
+exercise_data <- exercise_data |> 
+  mutate(zip = factor(zip))
+         
+
+# Use custom R package built by Mari Roberts
+databookR::databook(exercise_data, var_descriptions = var_desc)
+```
+
+This codebook confirms:
+
+- `had_interview` has substantial missingness, consistent with the platform limitations noted in the exercise.
+- `completion_time_mins`, `docs_with_app`, and `docs_after_app` have long-tailed distributions, as expected from process behavior.
+
+## Exploratory Data Analysis
 
 
-## Descriptive Analysis
 
 
-## Logistic Regression
 
 
-## Results
 
 
-## Discussion
+
+
+
 
 
 
