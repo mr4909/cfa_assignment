@@ -42,3 +42,4 @@ This analysis models the collaborative work that would involve:
 - **Code for America’s GetCalFresh team**: Program designers and policy advocates.
 - **County Human Services Agencies**: Decision-makers and data providers.
 - **Applicants**: The core user base, especially those facing structural barriers to access.
+
