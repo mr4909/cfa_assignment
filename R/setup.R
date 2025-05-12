@@ -40,7 +40,10 @@ required_packages <- c(
   "broom",
   "corrplot",
   "forcats",
-  "gt"
+  "gt",
+  "pscl",
+  "ResourceSelection",
+  "pROC"
 )
 
 # Load packages quietly

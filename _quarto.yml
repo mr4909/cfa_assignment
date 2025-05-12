@@ -6,10 +6,12 @@ website:
   favicon: img/favicon.png
   navbar:
     right:
+      - text: "Home"
+        href: index.html
+      - text: "About"
+        href: about.html
       - text: "Key Findings"
         href: key_findings.html
-      - text: "About"
-        href: index.html
       - text: "Analysis"
         href: analysis.html
       - text: "Contact"

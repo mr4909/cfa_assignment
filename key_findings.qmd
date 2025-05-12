@@ -1,15 +1,137 @@
 ---
-title: 'Key Findings'
+title: "Key Findings"
 format:
   html:
     css: styles.css
-    embed-resources: TRUE
-    code-fold: true
+    embed-resources: true
+    code-fold: false
     page-layout: full
-    fig_caption: yes
-    toc: false
+    fig_caption: true
+    toc: true
 ---
 
-## What factors are most strongly associated with CalFresh approval?
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+)
 
-## Where would you look next to improve the application process?
+source("R/setup.R")
+# Load the model 
+approval_model <- readRDS("models/approval_model.rds")
+```
+
+This analysis examines 2,046 CalFresh applications submitted via [GetCalFresh.org](GetCalFresh.org) in San Diego County. The goal was to understand which factors are most strongly associated with approval outcomes and where the process might be improved to better serve eligible applicants.
+
+## 1. Factors Associated With Approval
+
+To identify which factors were most strongly associated with CalFresh approval, a logistic regression model was used. The outcome variable was whether an application was approved. Predictors included self-reported income, household composition, housing stability, interview completion (self-reported), and document submission behavior (before and after application). Variables were selected based on program relevance, user behavior, and exploratory analysis.
+
+All numeric variables were checked for correlation and scaled for interpretability (e.g., income was divided by \$500). Missing data were minimal except for `had_interview`, which was recoded as a categorical variable with an "unknown" level to avoid excluding many applicants. The model achieved a McFadden R² of 0.15 and an AUC of 0.76 — indicating good fit and predictive performance using only application-facing data.
+
+**Key Results and Interpretations**
+
+The table below summarizes the model results, with both statistical detail and a plain-language interpretation for each variable. This format supports both researchers and stakeholders.
+
+```{r}
+# Load and tidy model
+model_results <- broom::tidy(approval_model, exponentiate = TRUE, conf.int = TRUE)
+
+# Add plain-language labels
+var_labels <- tibble::tibble(
+  term = c(
+    "(Intercept)",
+    "income_500",
+    "household_size",
+    "under18_n",
+    "over_59_n",
+    "docs_with_app",
+    "docs_after_app",
+    "completion_time_capped",
+    "stable_housingTRUE",
+    "interview_completedCompleted"
+  ),
+  label = c(
+    "Baseline (reference)",
+    "Income (per $500)",
+    "Household Size",
+    "Children in Household",
+    "Older Adults in Household",
+    "Docs Submitted With Application",
+    "Docs Submitted After Application",
+    "Application Time (minutes)",
+    "Stable Housing",
+    "Interview Completed"
+  ),
+  explanation = c(
+    "Baseline odds (intercept)",
+    "Higher income was linked to lower approval",
+    "Larger households were not significantly different",
+    "Each child increased odds of approval",
+    "No significant effect",
+    "Each document increased approval odds by ~12%",
+    "Each document had a small positive effect",
+    "Longer applications showed no strong association",
+    "No clear difference after accounting for other factors",
+    "Strongest predictor of approval"
+  )
+)
+
+# Join labels
+display_results <- model_results |>
+  left_join(var_labels, by = "term") |>
+  filter(!is.na(label)) |>
+  select(label, estimate, conf.low, conf.high, p.value, explanation) |>
+  mutate(across(where(is.numeric), round, 2))
+
+# Create table
+display_results |>
+  gt() |>
+  cols_label(
+    label = "Variable",
+    estimate = "Odds Ratio",
+    conf.low = "95% CI (Low)",
+    conf.high = "95% CI (High)",
+    p.value = "P-Value",
+    explanation = "Interpretation"
+  ) |>
+  fmt_number(columns = c(estimate, conf.low, conf.high, p.value), decimals = 2) |>
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_body(rows = label == "Interview Completed")
+  ) |>
+  tab_options(
+    table.font.names = "Source Sans 3",
+    column_labels.font.weight = "bold",
+    column_labels.background.color = "#ece9f9",
+    data_row.padding = px(4),
+    heading.title.font.size = 16,
+    table.width = pct(100)
+  )
+```
+
+:::{.callout-purple}
+**Summary:**
+
+- Interview completion was the strongest predictor of approval. Applicants who confirmed completing the interview had a predicted approval rate of ~72%, compared to 50% for others.
+- Document submission with the application improved outcomes. Each document uploaded increased approval odds.
+- Higher income reduced approval odds, consistent with eligibility thresholds.
+- Having children on the application increased approval likelihood, while housing stability and application duration had no significant impact after adjusting for other variables.
+:::
+
+## 2. Potential Improvements
+
+The biggest opportunities for improvement appear after the application is submitted. Applicants who didn’t confirm an interview or didn’t submit documents were much less likely to be approved — even when income-eligible. 
+
+:::{.callout-purple}
+**Summary:**
+
+- Help applicants complete interviews with reminders, pre-scheduling options, or simplified confirmation workflows.
+- Encourage early document uploads by guiding users to upload verification documents during the application flow, especially when they're likely to qualify.
+- Explore geographic disparities in approval outcomes across ZIP codes, potentially linked to caseloads or infrastructure (e.g., broadband access).
+
+These targeted improvements could reduce drop-off among eligible users and make the approval process more efficient and equitable.
+:::
+
+

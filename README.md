@@ -1,24 +1,28 @@
 # Take-Home Assignment – Code for America
 
-This repository contains my work for the Code for America take-home assignment.
+This repository contains my submission for the Code for America Senior Data Scientist take-home assignment. It includes exploratory data analysis, model development, and stakeholder-focused insights using CalFresh application data from San Diego County.
 
 ## Project Structure
 
 ```         
-├── README.md           # Project overview and setup instructions  
-├── data/               # Input data (if provided)  
-├── outputs/            # Generated plots, tables, or reports  
-├── R/                  # R scripts  
-│   ├── run_all.R  
-│   ├── file.R  
-│   ├── file.R  
-│   └── file.R  
-├── scripts/            # Main execution script  
-│   └── run_all.R  
-├── utils/              # Helper functions  
-│   └── utils_helpers.R  
-├── .Rproj              # RStudio project file  
-└── renv/               # Environment management directory (via `renv`)  
+├── README.md               # Project overview and instructions  
+├── _quarto.yml             # Quarto site configuration  
+├── analysis.qmd            # Full walkthrough of the data analysis  
+├── key_findings.qmd        # Stakeholder-facing summary of results  
+├── index.qmd               # Home page for the rendered site  
+├── about.qmd, contact.qmd  # Additional project content  
+├── styles.css              # Custom styles for Quarto outputs  
+├── data/                   # Input data (downloaded in-script)  
+├── img/                    # Screenshots from application walkthrough  
+├── models/                 # Saved model objects  
+├── R/                      # R scripts and helper functions  
+│   ├── setup.R             # Packages, fonts, colors, binwidths  
+│   └── utils_helpers.R     # Custom plotting and table styling functions  
+├── _site/                  # Rendered HTML output  
+├── _freeze/                # Quarto cache directory  
+├── renv/                   # Environment management (via `renv`)  
+├── renv.lock               # Package versions and reproducibility  
+└── cfa_assignment.Rproj    # RStudio project file  
 ```
 
 ## How to Run
@@ -38,25 +42,38 @@ To execute the full workflow from start to finish:
 
     This will install all required packages in a project-specific library without affecting your system-wide R setup.
 
-4.  Run the main script:
+4.  Render the Quarto site:
 
     ``` r
-    source("R/run_all.R")
+    quarto::quarto_render()
     ```
 
-This script will:
+    You can also open `_site/index.html` directly in your browser to view the full rendered site if you have already rendered it.
 
--   Load all necessary packages
--   Import and clean the input data
--   Run the core analysis
--   Generate outputs (plots, tables, reports) into the `outputs/` folder
+## Outputs
+
+-   `analysis.qmd`: Full analysis, including data exploration, logistic regression, and interpretation.
+-   `key_findings.qmd`: Simplified summary for assignment.
+-   Saved model: models/approval_model.rds
+-   Rendered outputs are saved to `_site/` by Quarto. You can open `index.html` to explore the full report.
+-   Model diagnostics include test-set evaluation (AUC = 0.76) to confirm generalizability
+
+## Data Notes
+
+-   All input data is pulled directly in-script from a Google Drive link. No manual download required.
+-   No private or sensitive data is used. All work is reproducible with provided scripts.
 
 ## Branching and Collaboration
 
-This project follows a standard Git workflow: - Development work is done in branches - The main branch contains the production-ready version
+This project uses a two-branch Git workflow:
+
+-   `main`: Contains the polished, production-ready version of the project
+-   `develop`: Used for drafting, testing, and refining code and analysis before merging into `main`
+
+All development work — including exploratory analysis, function building, and documentation — was done in the develop branch, then reviewed and merged into main once finalized.
 
 ## Contact
 
 For any questions about this repository or the take-home assignment, please contact:
 
-Mari Roberts Email: \[marialexandriaroberts\@gmail.com\]
+**Mari Roberts** Email: [marialexandriaroberts\@gmail.com](mailto:marialexandriaroberts@gmail.com)

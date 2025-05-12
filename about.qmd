@@ -1,0 +1,44 @@
+---
+title: "CalFresh SNAP Application Analysis"
+format:
+  html:
+    css: styles.css
+    embed-resources: true
+    code-fold: true
+    page-layout: full
+    fig_caption: true
+    toc: true
+---
+
+## Introduction
+
+Welcome to the CalFresh SNAP Application Analysis site, created as part of a data science take home assignment for Code for America.  
+
+The analysis explores factors associated with CalFresh (SNAP) application approvals in San Diego County, based on ~2,000 applications submitted via [GetCalFresh.org](https://www.getcalfresh.org/).   
+
+This project aims to surface key patterns in approval outcomes and suggest potential improvements to the application process.  
+
+## Objectives
+
+- Identify which applicant characteristics are most strongly associated with approval.
+- Understand where the process may break down (e.g., interviews, document submission).
+- Suggest actionable, user-centered improvements to reduce friction in the process.
+
+## Key Questions
+
+1. **What factors are most strongly associated with CalFresh approval?**
+2. **Where would you look next to improve the application process?**
+
+## Project Links
+
+- **GitHub Repository**: [Link to repo](https://github.com/mr4909/cfa_assignment)
+- **Exercise Prompt**: [View exercise PDF](Data_Science_Exercise.pdf)
+- **Data Source**: [Download from Google Drive](https://drive.google.com/file/d/18BjZXdHsiMp89PriE7E14LZcX0qn3s3P/view)
+
+## Stakeholders
+
+This analysis models the collaborative work that would involve:
+
+- **Code for America’s GetCalFresh team**: Program designers and policy advocates.
+- **County Human Services Agencies**: Decision-makers and data providers.
+- **Applicants**: The core user base, especially those facing structural barriers to access.
