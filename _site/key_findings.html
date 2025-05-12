@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Home – Improving Access to CalFresh</title>
+<title>Key Findings – Improving Access to CalFresh</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -4705,7 +4705,6 @@ vertical-align: -.125em;
     "search-label": "Search"
   }
 }</script>
-<style>html{ scroll-behavior: smooth; }</style>
 
 
 <style type="text/css">@font-face {
@@ -4764,7 +4763,7 @@ body {font-family: "Source Sans 3", sans-serif;margin: 0;padding: 0;}a, a:visite
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -4772,7 +4771,7 @@ body {font-family: "Source Sans 3", sans-serif;margin: 0;padding: 0;}a, a:visite
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./key_findings.html"> 
+    <a class="nav-link active" href="./key_findings.html" aria-current="page"> 
 <span class="menu-text">Key Findings</span></a>
   </li>  
   <li class="nav-item">
@@ -4797,21 +4796,31 @@ body {font-family: "Source Sans 3", sans-serif;margin: 0;padding: 0;}a, a:visite
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#factors-associated-with-approval" id="toc-factors-associated-with-approval" class="nav-link active" data-scroll-target="#factors-associated-with-approval">1. Factors Associated With Approval</a></li>
+  <li><a href="#potential-improvements" id="toc-potential-improvements" class="nav-link" data-scroll-target="#potential-improvements">2. Potential Improvements</a></li>
+  </ul>
+</nav>
+</nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
+<main class="content column-page-right" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Home</h1>
+<h1 class="title">Key Findings</h1>
 </div>
 
 
 
-<div class="quarto-title-meta column-page">
+<div class="quarto-title-meta column-page-right">
 
     
   
@@ -4823,8 +4832,535 @@ body {font-family: "Source Sans 3", sans-serif;margin: 0;padding: 0;}a, a:visite
 </header>
 
 
+<p>This analysis examines 2,046 CalFresh applications submitted via <a href="GetCalFresh.org">GetCalFresh.org</a> in San Diego County. The goal was to understand which factors are most strongly associated with approval outcomes and where the process might be improved to better serve eligible applicants.</p>
+<section id="factors-associated-with-approval" class="level2">
+<h2 class="anchored" data-anchor-id="factors-associated-with-approval">1. Factors Associated With Approval</h2>
+<p>To identify which factors were most strongly associated with CalFresh approval, a logistic regression model was used. The outcome variable was whether an application was approved. Predictors included self-reported income, household composition, housing stability, interview completion (self-reported), and document submission behavior (before and after application). Variables were selected based on program relevance, user behavior, and exploratory analysis.</p>
+<p>All numeric variables were checked for correlation and scaled for interpretability (e.g., income was divided by $500). Missing data were minimal except for <code>had_interview</code>, which was recoded as a categorical variable with an “unknown” level to avoid excluding many applicants. The model achieved a McFadden R² of 0.15 and an AUC of 0.76 — indicating good fit and predictive performance using only application-facing data.</p>
+<p><strong>Key Results and Interpretations</strong></p>
+<p>The table below summarizes the model results, with both statistical detail and a plain-language interpretation for each variable. This format supports both researchers and stakeholders.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="gknbjaiyjv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#gknbjaiyjv table {
+font-family: 'Source Sans 3';
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+#gknbjaiyjv thead, #gknbjaiyjv tbody, #gknbjaiyjv tfoot, #gknbjaiyjv tr, #gknbjaiyjv td, #gknbjaiyjv th {
+border-style: none;
+}
+#gknbjaiyjv p {
+margin: 0;
+padding: 0;
+}
+#gknbjaiyjv .gt_table {
+display: table;
+border-collapse: collapse;
+line-height: normal;
+margin-left: auto;
+margin-right: auto;
+color: #333333;
+font-size: 16px;
+font-weight: normal;
+font-style: normal;
+background-color: #FFFFFF;
+width: 100%;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #A8A8A8;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #A8A8A8;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+}
+#gknbjaiyjv .gt_caption {
+padding-top: 4px;
+padding-bottom: 4px;
+}
+#gknbjaiyjv .gt_title {
+color: #333333;
+font-size: 16px;
+font-weight: initial;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-color: #FFFFFF;
+border-bottom-width: 0;
+}
+#gknbjaiyjv .gt_subtitle {
+color: #333333;
+font-size: 85%;
+font-weight: initial;
+padding-top: 3px;
+padding-bottom: 5px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-color: #FFFFFF;
+border-top-width: 0;
+}
+#gknbjaiyjv .gt_heading {
+background-color: #FFFFFF;
+text-align: center;
+border-bottom-color: #FFFFFF;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#gknbjaiyjv .gt_bottom_border {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#gknbjaiyjv .gt_col_headings {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#gknbjaiyjv .gt_col_heading {
+color: #333333;
+background-color: #ECE9F9;
+font-size: 100%;
+font-weight: bold;
+text-transform: inherit;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 6px;
+padding-left: 5px;
+padding-right: 5px;
+overflow-x: hidden;
+}
+#gknbjaiyjv .gt_column_spanner_outer {
+color: #333333;
+background-color: #ECE9F9;
+font-size: 100%;
+font-weight: bold;
+text-transform: inherit;
+padding-top: 0;
+padding-bottom: 0;
+padding-left: 4px;
+padding-right: 4px;
+}
+#gknbjaiyjv .gt_column_spanner_outer:first-child {
+padding-left: 0;
+}
+#gknbjaiyjv .gt_column_spanner_outer:last-child {
+padding-right: 0;
+}
+#gknbjaiyjv .gt_column_spanner {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 5px;
+overflow-x: hidden;
+display: inline-block;
+width: 100%;
+}
+#gknbjaiyjv .gt_spanner_row {
+border-bottom-style: hidden;
+}
+#gknbjaiyjv .gt_group_heading {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+text-align: left;
+}
+#gknbjaiyjv .gt_empty_group_heading {
+padding: 0.5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: middle;
+}
+#gknbjaiyjv .gt_from_md > :first-child {
+margin-top: 0;
+}
+#gknbjaiyjv .gt_from_md > :last-child {
+margin-bottom: 0;
+}
+#gknbjaiyjv .gt_row {
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+margin: 10px;
+border-top-style: solid;
+border-top-width: 1px;
+border-top-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+overflow-x: hidden;
+}
+#gknbjaiyjv .gt_stub {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+}
+#gknbjaiyjv .gt_stub_row_group {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+vertical-align: top;
+}
+#gknbjaiyjv .gt_row_group_first td {
+border-top-width: 2px;
+}
+#gknbjaiyjv .gt_row_group_first th {
+border-top-width: 2px;
+}
+#gknbjaiyjv .gt_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#gknbjaiyjv .gt_first_summary_row {
+border-top-style: solid;
+border-top-color: #D3D3D3;
+}
+#gknbjaiyjv .gt_first_summary_row.thick {
+border-top-width: 2px;
+}
+#gknbjaiyjv .gt_last_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#gknbjaiyjv .gt_grand_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#gknbjaiyjv .gt_first_grand_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-style: double;
+border-top-width: 6px;
+border-top-color: #D3D3D3;
+}
+#gknbjaiyjv .gt_last_grand_summary_row_top {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: double;
+border-bottom-width: 6px;
+border-bottom-color: #D3D3D3;
+}
+#gknbjaiyjv .gt_striped {
+background-color: rgba(128, 128, 128, 0.05);
+}
+#gknbjaiyjv .gt_table_body {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#gknbjaiyjv .gt_footnotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#gknbjaiyjv .gt_footnote {
+margin: 0px;
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#gknbjaiyjv .gt_sourcenotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#gknbjaiyjv .gt_sourcenote {
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#gknbjaiyjv .gt_left {
+text-align: left;
+}
+#gknbjaiyjv .gt_center {
+text-align: center;
+}
+#gknbjaiyjv .gt_right {
+text-align: right;
+font-variant-numeric: tabular-nums;
+}
+#gknbjaiyjv .gt_font_normal {
+font-weight: normal;
+}
+#gknbjaiyjv .gt_font_bold {
+font-weight: bold;
+}
+#gknbjaiyjv .gt_font_italic {
+font-style: italic;
+}
+#gknbjaiyjv .gt_super {
+font-size: 65%;
+}
+#gknbjaiyjv .gt_footnote_marks {
+font-size: 75%;
+vertical-align: 0.4em;
+position: initial;
+}
+#gknbjaiyjv .gt_asterisk {
+font-size: 100%;
+vertical-align: 0;
+}
+#gknbjaiyjv .gt_indent_1 {
+text-indent: 5px;
+}
+#gknbjaiyjv .gt_indent_2 {
+text-indent: 10px;
+}
+#gknbjaiyjv .gt_indent_3 {
+text-indent: 15px;
+}
+#gknbjaiyjv .gt_indent_4 {
+text-indent: 20px;
+}
+#gknbjaiyjv .gt_indent_5 {
+text-indent: 25px;
+}
+#gknbjaiyjv .katex-display {
+display: inline-flex !important;
+margin-bottom: 0.75em !important;
+}
+#gknbjaiyjv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="label" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Variable</th>
+<th id="estimate" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Odds Ratio</th>
+<th id="conf.low" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">95% CI (Low)</th>
+<th id="conf.high" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">95% CI (High)</th>
+<th id="p.value" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">P-Value</th>
+<th id="explanation" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Interpretation</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">Baseline (reference)</td>
+<td class="gt_row gt_right" headers="estimate">2.02</td>
+<td class="gt_row gt_right" headers="conf.low">1.51</td>
+<td class="gt_row gt_right" headers="conf.high">2.71</td>
+<td class="gt_row gt_right" headers="p.value">0.00</td>
+<td class="gt_row gt_left" headers="explanation">Baseline odds (intercept)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">Income (per $500)</td>
+<td class="gt_row gt_right" headers="estimate">0.67</td>
+<td class="gt_row gt_right" headers="conf.low">0.62</td>
+<td class="gt_row gt_right" headers="conf.high">0.71</td>
+<td class="gt_row gt_right" headers="p.value">0.00</td>
+<td class="gt_row gt_left" headers="explanation">Higher income was linked to lower approval</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">Household Size</td>
+<td class="gt_row gt_right" headers="estimate">0.83</td>
+<td class="gt_row gt_right" headers="conf.low">0.68</td>
+<td class="gt_row gt_right" headers="conf.high">1.01</td>
+<td class="gt_row gt_right" headers="p.value">0.07</td>
+<td class="gt_row gt_left" headers="explanation">Larger households were not significantly different</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">Children in Household</td>
+<td class="gt_row gt_right" headers="estimate">1.46</td>
+<td class="gt_row gt_right" headers="conf.low">1.13</td>
+<td class="gt_row gt_right" headers="conf.high">1.89</td>
+<td class="gt_row gt_right" headers="p.value">0.00</td>
+<td class="gt_row gt_left" headers="explanation">Each child increased odds of approval</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">Older Adults in Household</td>
+<td class="gt_row gt_right" headers="estimate">1.20</td>
+<td class="gt_row gt_right" headers="conf.low">0.85</td>
+<td class="gt_row gt_right" headers="conf.high">1.70</td>
+<td class="gt_row gt_right" headers="p.value">0.29</td>
+<td class="gt_row gt_left" headers="explanation">No significant effect</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">Docs Submitted With Application</td>
+<td class="gt_row gt_right" headers="estimate">1.13</td>
+<td class="gt_row gt_right" headers="conf.low">1.07</td>
+<td class="gt_row gt_right" headers="conf.high">1.19</td>
+<td class="gt_row gt_right" headers="p.value">0.00</td>
+<td class="gt_row gt_left" headers="explanation">Each document increased approval odds by ~12%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">Docs Submitted After Application</td>
+<td class="gt_row gt_right" headers="estimate">1.07</td>
+<td class="gt_row gt_right" headers="conf.low">1.01</td>
+<td class="gt_row gt_right" headers="conf.high">1.14</td>
+<td class="gt_row gt_right" headers="p.value">0.02</td>
+<td class="gt_row gt_left" headers="explanation">Each document had a small positive effect</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">Application Time (minutes)</td>
+<td class="gt_row gt_right" headers="estimate">1.00</td>
+<td class="gt_row gt_right" headers="conf.low">0.99</td>
+<td class="gt_row gt_right" headers="conf.high">1.00</td>
+<td class="gt_row gt_right" headers="p.value">0.20</td>
+<td class="gt_row gt_left" headers="explanation">Longer applications showed no strong association</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">Stable Housing</td>
+<td class="gt_row gt_right" headers="estimate">0.90</td>
+<td class="gt_row gt_right" headers="conf.low">0.70</td>
+<td class="gt_row gt_right" headers="conf.high">1.15</td>
+<td class="gt_row gt_right" headers="p.value">0.38</td>
+<td class="gt_row gt_left" headers="explanation">No clear difference after accounting for other factors</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-weight: bold">Interview Completed</td>
+<td class="gt_row gt_right" headers="estimate" style="font-weight: bold">2.99</td>
+<td class="gt_row gt_right" headers="conf.low" style="font-weight: bold">2.31</td>
+<td class="gt_row gt_right" headers="conf.high" style="font-weight: bold">3.89</td>
+<td class="gt_row gt_right" headers="p.value" style="font-weight: bold">0.00</td>
+<td class="gt_row gt_left" headers="explanation" style="font-weight: bold">Strongest predictor of approval</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="callout-purple">
+<p><strong>Summary:</strong></p>
+<ul>
+<li>Interview completion was the strongest predictor of approval. Applicants who confirmed completing the interview had a predicted approval rate of ~72%, compared to 50% for others.</li>
+<li>Document submission with the application improved outcomes. Each document uploaded increased approval odds.</li>
+<li>Higher income reduced approval odds, consistent with eligibility thresholds.</li>
+<li>Having children on the application increased approval likelihood, while housing stability and application duration had no significant impact after adjusting for other variables.</li>
+</ul>
+</div>
+</section>
+<section id="potential-improvements" class="level2">
+<h2 class="anchored" data-anchor-id="potential-improvements">2. Potential Improvements</h2>
+<p>The biggest opportunities for improvement appear after the application is submitted. Applicants who didn’t confirm an interview or didn’t submit documents were much less likely to be approved — even when income-eligible.</p>
+<div class="callout-purple">
+<p><strong>Summary:</strong></p>
+<ul>
+<li>Help applicants complete interviews with reminders, pre-scheduling options, or simplified confirmation workflows.</li>
+<li>Encourage early document uploads by guiding users to upload verification documents during the application flow, especially when they’re likely to qualify.</li>
+<li>Explore geographic disparities in approval outcomes across ZIP codes, potentially linked to caseloads or infrastructure (e.g., broadband access).</li>
+</ul>
+<p>These targeted improvements could reduce drop-off among eligible users and make the approval process more efficient and equitable.</p>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -5252,5 +5788,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<script>!function(t,e){"function"==typeof define&&define.amd?define([],e()):"object"==typeof module&&module.exports?module.exports=e():function n(){document&&document.body?t.zenscroll=e():setTimeout(n,9)}()}(this,function(){"use strict";var t=function(t){return t&&"getComputedStyle"in window&&"smooth"===window.getComputedStyle(t)["scroll-behavior"]};if("undefined"==typeof window||!("document"in window))return{};var e=function(e,n,o){n=n||999,o||0===o||(o=9);var i,r=function(t){i=t},u=function(){clearTimeout(i),r(0)},c=function(t){return Math.max(0,e.getTopOf(t)-o)},a=function(o,i,c){if(u(),0===i||i&&i<0||t(e.body))e.toY(o),c&&c();else{var a=e.getY(),f=Math.max(0,o)-a,s=(new Date).getTime();i=i||Math.min(Math.abs(f),n),function t(){r(setTimeout(function(){var n=Math.min(1,((new Date).getTime()-s)/i),o=Math.max(0,Math.floor(a+f*(n<.5?2*n*n:n*(4-2*n)-1)));e.toY(o),n<1&&e.getHeight()+o<e.body.scrollHeight?t():(setTimeout(u,99),c&&c())},9))}()}},f=function(t,e,n){a(c(t),e,n)},s=function(t,n,i){var r=t.getBoundingClientRect().height,u=e.getTopOf(t)+r,s=e.getHeight(),l=e.getY(),d=l+s;c(t)<l||r+o>s?f(t,n,i):u+o>d?a(u-s+o,n,i):i&&i()},l=function(t,n,o,i){a(Math.max(0,e.getTopOf(t)-e.getHeight()/2+(o||t.getBoundingClientRect().height/2)),n,i)};return{setup:function(t,e){return(0===t||t)&&(n=t),(0===e||e)&&(o=e),{defaultDuration:n,edgeOffset:o}},to:f,toY:a,intoView:s,center:l,stop:u,moving:function(){return!!i},getY:e.getY,getTopOf:e.getTopOf}},n=document.documentElement,o=function(){return window.scrollY||n.scrollTop},i=e({body:document.scrollingElement||document.body,toY:function(t){window.scrollTo(0,t)},getY:o,getHeight:function(){return window.innerHeight||n.clientHeight},getTopOf:function(t){return t.getBoundingClientRect().top+o()-n.offsetTop}});if(i.createScroller=function(t,o,i){return e({body:t,toY:function(e){t.scrollTop=e},getY:function(){return t.scrollTop},getHeight:function(){return Math.min(t.clientHeight,window.innerHeight||n.clientHeight)},getTopOf:function(t){return t.offsetTop}},o,i)},"addEventListener"in window&&!window.noZensmooth&&!t(document.body)){var r="history"in window&&"pushState"in history,u=r&&"scrollRestoration"in history;u&&(history.scrollRestoration="auto"),window.addEventListener("load",function(){u&&(setTimeout(function(){history.scrollRestoration="manual"},9),window.addEventListener("popstate",function(t){t.state&&"zenscrollY"in t.state&&i.toY(t.state.zenscrollY)},!1)),window.location.hash&&setTimeout(function(){var t=i.setup().edgeOffset;if(t){var e=document.getElementById(window.location.href.split("#")[1]);if(e){var n=Math.max(0,i.getTopOf(e)-t),o=i.getY()-n;0<=o&&o<9&&window.scrollTo(0,n)}}},9)},!1);var c=new RegExp("(^|\\s)noZensmooth(\\s|$)");window.addEventListener("click",function(t){for(var e=t.target;e&&"A"!==e.tagName;)e=e.parentNode;if(!(!e||1!==t.which||t.shiftKey||t.metaKey||t.ctrlKey||t.altKey)){if(u){var n=history.state&&"object"==typeof history.state?history.state:{};n.zenscrollY=i.getY();try{history.replaceState(n,"")}catch(t){}}var o=e.getAttribute("href")||"";if(0===o.indexOf("#")&&!c.test(e.className)){var a=0,f=document.getElementById(o.substring(1));if("#"!==o){if(!f)return;a=i.getTopOf(f)}t.preventDefault();var s=function(){window.location=o},l=i.setup().edgeOffset;l&&(a=Math.max(0,a-l),r&&(s=function(){history.pushState({},"",o)})),i.toY(a,null,s)}}},!1)}return i});</script>
 </body></html>

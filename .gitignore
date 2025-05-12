@@ -54,7 +54,6 @@ renv/staging/
 # ───────────────────────────────
 # Quarto site build artifacts
 # ───────────────────────────────
-_site/
 .quarto/
 .quarto-preview/
 
