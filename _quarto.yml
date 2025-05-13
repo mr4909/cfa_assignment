@@ -1,0 +1,30 @@
+project:
+  type: website
+
+website:
+  title: "Improving Access to CalFresh"
+  favicon: img/favicon.png
+  navbar:
+    right:
+      - text: "Home"
+        href: index.html
+      - text: "About"
+        href: about.html
+      - text: "Key Findings"
+        href: key_findings.html
+      - text: "Analysis"
+        href: analysis.html
+      - text: "Contact"
+        href: contact.html
+      - text: "Github"
+        href: https://github.com/mr4909/cfa_assignment
+
+format:
+  html:
+    theme: flatly
+    css: styles.css
+    toc: true
+    toc-location: left
+
+execute:
+  freeze: auto

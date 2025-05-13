@@ -1,0 +1,25 @@
+---
+title: ""
+format:
+  html:
+    css: styles.css
+    toc: false
+    embed-resources: true
+    page-layout: full
+    code-fold: false
+    smooth-scroll: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+<div id="purple-page">
+  <h1 class="page-title">Improving Access to CalFresh</h1>
+  <p class="page-subtitle">Making food assistance easier to access, starting with the data.</p>
+  <a href="https://calfresh-cfa-exercise.netlify.app/key_findings" class="banner-button">View Key Findings</a>
+</div>

@@ -1,0 +1,173 @@
+---
+title: "Key Findings"
+format:
+  html:
+    css: styles.css
+    embed-resources: true
+    code-fold: false
+    page-layout: full
+    fig_caption: true
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  include = FALSE
+)
+
+source("R/setup.R")
+source("R/utils_helpers.R")
+
+# Load the model 
+approval_model <- readRDS("models/approval_model.rds")
+```
+
+This analysis draws on 2,046 CalFresh applications submitted online in San Diego County. It includes applicant information, activity on the site, and final approval outcomes — but does not capture actions taken outside the platform, like mailed documents or phone interviews.
+
+## 1. Factors Associated With Approval
+
+To understand what predicts CalFresh approval, I fit a logistic regression model using application data from GetCalFresh.org. The model estimates how each factor — like income, document uploads, and interview completion — is associated with the chance of being approved, while accounting for all other variables in the dataset.
+
+Variables were selected based on program relevance, user behavior, and insights from exploratory analysis. I scaled income per $500 for interpretability and recoded interview completion to retain applicants with missing responses.
+
+The goal wasn’t just to predict outcomes, but to understand where applicants might drop off and which steps in the process matter most.
+
+::: callout-purple
+**Key Findings:**
+
+-   Applicants who confirmed completing the interview had a predicted approval rate of **72%**, compared to **50%** for those who didn’t confirm.
+-   Uploading documents with the application increased approval chances.
+-   Higher income reduced the likelihood of approval — even among mostly income-eligible applicants.
+-   Having children in the household was associated with higher approval odds.
+-   Housing stability and application time didn’t show strong associations once other factors were considered.
+:::
+
+The table below shows model results using odds ratios — a way to estimate how each factor affects the odds of approval, controlling for all others. For example, an odds ratio of 1.5 means the odds of approval are 50% higher for that group compared to the baseline.
+
+```{r}
+# Load and tidy model results
+model_results <- broom::tidy(approval_model, exponentiate = TRUE, conf.int = TRUE)
+
+# Add plain-language labels and interpretations
+var_labels <- tibble::tibble(
+  term = c(
+    "(Intercept)",
+    "income_500",
+    "household_size",
+    "under18_n",
+    "over_59_n",
+    "docs_with_app",
+    "docs_after_app",
+    "completion_time_capped",
+    "stable_housingTRUE",
+    "interview_completedCompleted"
+  ),
+  label = c(
+    "Baseline (reference)",
+    "Income (per $500)",
+    "Household Size",
+    "Children in Household",
+    "Older Adults in Household",
+    "Docs Submitted With Application",
+    "Docs Submitted After Application",
+    "Application Time (minutes)",
+    "Stable Housing",
+    "Interview Completed"
+  ),
+  explanation = c(
+    "Baseline odds (intercept)",
+    "Higher income was linked to lower approval",
+    "Larger households were not significantly different",
+    "Each child increased odds of approval",
+    "No significant effect",
+    "Each document increased approval odds by ~13%",
+    "Each document had a small positive effect",
+    "Longer applications showed no strong association",
+    "No clear difference after accounting for other factors",
+    "Strongest predictor of approval"
+  )
+)
+
+# Merge and prepare for display
+display_results <- model_results |>
+  left_join(var_labels, by = "term") |>
+  filter(!is.na(label)) |>
+  select(label, estimate, conf.low, conf.high, p.value, explanation) |>
+  mutate(across(where(is.numeric), round, 2))
+
+# Display table
+display_results |>
+  gt() |>
+  cols_label(
+    label = "Variable",
+    estimate = "Odds Ratio",
+    conf.low = "95% CI (Low)",
+    conf.high = "95% CI (High)",
+    p.value = "P-Value",
+    explanation = "Interpretation"
+  ) |>
+  fmt_number(columns = c(estimate, conf.low, conf.high, p.value), decimals = 2) |>
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_body(rows = label == "Interview Completed")
+  ) |>
+  fnc_style_gt_table()
+```
+> The model explained a meaningful amount of variation in approval outcomes (McFadden R² = 0.15) and correctly distinguished approved vs. denied applications 76% of the time (AUC = 0.76). These results suggest the model performs well given the limited behavioral data available from the application platform.
+
+To make the results easier to interpret, the table below shows predicted approval rates for example applicant scenarios, based on the fitted model.
+
+```{r}
+# Define example applicant profiles
+example_profiles <- tibble::tibble(
+  scenario = c(
+    "Completed interview + uploaded docs",
+    "No interview, no docs",
+    "Income > $1,500, small household",
+    "Income < $500, submitted docs + interview"
+  ),
+  income_500 = c(0.5, 0.5, 3.0, 0.5),
+  household_size = c(2, 2, 1, 1),
+  under18_n = c(1, 1, 0, 0),
+  over_59_n = c(0, 0, 0, 0),
+  docs_with_app = c(2, 0, 0, 2),
+  docs_after_app = c(0, 0, 0, 0),
+  completion_time_capped = c(15, 15, 10, 10),
+  stable_housing = c(TRUE, TRUE, TRUE, TRUE),
+  interview_completed = factor(
+    c("Completed", "Not confirmed", "Not confirmed", "Completed"),
+    levels = c("Not confirmed", "Completed")
+  )
+)
+
+# Predict using model
+predicted_probs <- predict(approval_model, newdata = example_profiles, type = "response")
+
+# Add predictions to the data
+example_profiles <- example_profiles |>
+  mutate(`Predicted Approval Rate` = scales::percent(predicted_probs, accuracy = 1))
+
+# Display as gt table
+example_profiles |>
+  select(Scenario = scenario, `Predicted Approval Rate`) |>
+  gt::gt() |>
+  fnc_style_gt_table()
+```
+These results show that relatively small steps — like completing an interview or uploading a document — can meaningfully increase the chance of approval. Many of these steps could be supported through timely nudges, simpler workflows, or user-centered reminders.
+
+## 2. Potential Improvements
+
+The model points to clear opportunities to improve approval outcomes by supporting applicants at key decision points.
+
+::: callout-purple
+Recommendations:
+
+-   **Support interview completion:** Many eligible applicants do not confirm completing the interview. Providing reminders, real-time scheduling, or alternative follow-up methods could increase follow-through.
+-   **Encourage early document uploads:** Uploading documents with the application was strongly associated with approval. Nudging users to upload early — especially those likely to qualify — could reduce denials.
+-   **Address geographic disparities:** Approval rates vary significantly by ZIP code. Further analysis could explore whether these reflect staffing, broadband access, or population needs — and help inform place-based outreach strategies.
+:::
+
+Strengthening these steps would not only increase approval rates, but also improve equity and access for those most in need.

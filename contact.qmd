@@ -1,0 +1,21 @@
+---
+title: 'Contact'
+format:
+  html:
+    css: styles.css
+    embed-resources: TRUE
+    code-fold: true
+    page-layout: full
+    fig_caption: yes
+    toc: TRUE
+---
+
+## Team
+
+For questions or additional information, feel free to contact:
+
+**Mari Roberts**  
+Project Author
+
+**Email**: [marialexandriaroberts@gmail.com](marialexandriaroberts@gmail.com)  
+**GitHub**: [@mr4909](https://github.com/mr4909)  
