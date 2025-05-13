@@ -1,5 +1,5 @@
 ---
-title: "CalFresh SNAP Application Analysis"
+title: "About"
 format:
   html:
     css: styles.css
@@ -10,13 +10,11 @@ format:
     toc: true
 ---
 
-## Introduction
+This analysis was conducted as part of a take-home exercise for Code for America.
 
-Welcome to the CalFresh SNAP Application Analysis site, created as part of a data science take home assignment for Code for America.  
+It explores which factors are associated with approval of CalFresh (SNAP) applications submitted via [GetCalFresh.org](https://www.getcalfresh.org) in San Diego County.
 
-The analysis explores factors associated with CalFresh (SNAP) application approvals in San Diego County, based on ~2,000 applications submitted via [GetCalFresh.org](https://www.getcalfresh.org/).   
-
-This project aims to surface key patterns in approval outcomes and suggest potential improvements to the application process.  
+The goal is to identify patterns in approval outcomes and highlight steps that could help more eligible applicants access food assistance.
 
 ## Objectives
 
@@ -24,10 +22,12 @@ This project aims to surface key patterns in approval outcomes and suggest poten
 - Understand where the process may break down (e.g., interviews, document submission).
 - Suggest actionable, user-centered improvements to reduce friction in the process.
 
-## Key Questions
+:::{.callout-purple}
+**Key Questions**
 
-1. **What factors are most strongly associated with CalFresh approval?**
-2. **Where would you look next to improve the application process?**
+1. What factors are most strongly associated with CalFresh approval?
+2. Where would you look next to improve the application process?
+:::
 
 ## Project Links
 
@@ -35,10 +35,8 @@ This project aims to surface key patterns in approval outcomes and suggest poten
 - **Exercise Prompt**: [View exercise PDF](Data_Science_Exercise.pdf)
 - **Data Source**: [Download from Google Drive](https://drive.google.com/file/d/18BjZXdHsiMp89PriE7E14LZcX0qn3s3P/view)
 
-## Stakeholders
+## Stakeholders Considered
 
-This analysis models the collaborative work that would involve:
-
-- **Code for America’s GetCalFresh team**: Program designers and policy advocates.
-- **County Human Services Agencies**: Decision-makers and data providers.
-- **Applicants**: The core user base, especially those facing structural barriers to access.
+- **GetCalFresh Team** – program design and outreach  
+- **County Human Services** – eligibility decision-makers  
+- **Applicants** – especially those facing barriers to access  

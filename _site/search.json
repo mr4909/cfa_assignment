@@ -37,42 +37,42 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "CalFresh SNAP Application Analysis",
+    "title": "About",
     "section": "",
-    "text": "Welcome to the CalFresh SNAP Application Analysis site, created as part of a data science take home assignment for Code for America.\nThe analysis explores factors associated with CalFresh (SNAP) application approvals in San Diego County, based on ~2,000 applications submitted via GetCalFresh.org.\nThis project aims to surface key patterns in approval outcomes and suggest potential improvements to the application process."
+    "text": "This analysis was conducted as part of a take-home exercise for Code for America.\nIt explores which factors are associated with approval of CalFresh (SNAP) applications submitted via GetCalFresh.org in San Diego County.\nThe goal is to identify patterns in approval outcomes and highlight steps that could help more eligible applicants access food assistance."
   },
   {
     "objectID": "about.html#introduction",
     "href": "about.html#introduction",
-    "title": "CalFresh SNAP Application Analysis",
+    "title": "Improving Access to CalFresh",
     "section": "",
-    "text": "Welcome to the CalFresh SNAP Application Analysis site, created as part of a data science take home assignment for Code for America.\nThe analysis explores factors associated with CalFresh (SNAP) application approvals in San Diego County, based on ~2,000 applications submitted via GetCalFresh.org.\nThis project aims to surface key patterns in approval outcomes and suggest potential improvements to the application process."
+    "text": "Welcome to the Improving Access to CalFresh site, created as part of a take home assignment for Code for America.\nThe analysis explores factors associated with CalFresh (SNAP) application approvals in San Diego County, based on ~2,000 applications submitted via GetCalFresh.org.\nThis project aims to surface key patterns in approval outcomes and suggest potential improvements to the application process."
   },
   {
     "objectID": "about.html#objectives",
     "href": "about.html#objectives",
-    "title": "CalFresh SNAP Application Analysis",
+    "title": "About",
     "section": "Objectives",
-    "text": "Objectives\n\nIdentify which applicant characteristics are most strongly associated with approval.\nUnderstand where the process may break down (e.g., interviews, document submission).\nSuggest actionable, user-centered improvements to reduce friction in the process."
+    "text": "Objectives\n\nIdentify which applicant characteristics are most strongly associated with approval.\nUnderstand where the process may break down (e.g., interviews, document submission).\nSuggest actionable, user-centered improvements to reduce friction in the process.\n\n\nKey Questions\n\nWhat factors are most strongly associated with CalFresh approval?\nWhere would you look next to improve the application process?"
   },
   {
     "objectID": "about.html#key-questions",
     "href": "about.html#key-questions",
-    "title": "CalFresh SNAP Application Analysis",
+    "title": "Improving Access to CalFresh",
     "section": "Key Questions",
     "text": "Key Questions\n\nWhat factors are most strongly associated with CalFresh approval?\nWhere would you look next to improve the application process?"
   },
   {
     "objectID": "about.html#project-links",
     "href": "about.html#project-links",
-    "title": "CalFresh SNAP Application Analysis",
+    "title": "About",
     "section": "Project Links",
     "text": "Project Links\n\nGitHub Repository: Link to repo\nExercise Prompt: View exercise PDF\nData Source: Download from Google Drive"
   },
   {
     "objectID": "about.html#stakeholders",
     "href": "about.html#stakeholders",
-    "title": "CalFresh SNAP Application Analysis",
+    "title": "Improving Access to CalFresh",
     "section": "Stakeholders",
     "text": "Stakeholders\nThis analysis models the collaborative work that would involve:\n\nCode for America’s GetCalFresh team: Program designers and policy advocates.\nCounty Human Services Agencies: Decision-makers and data providers.\nApplicants: The core user base, especially those facing structural barriers to access."
   },
@@ -81,21 +81,21 @@
     "href": "analysis.html",
     "title": "Analysis Walkthrough",
     "section": "",
-    "text": "This analysis explores which factors are associated with whether a CalFresh (SNAP) application is approved or denied. The data come from 2,046 applications submitted through GetCalFresh.org in San Diego County.\n\nOur goal is to understand:\n\nWhat factors are associated with whether an applicant is approved or denied\nWhere in the process users may drop off, face barriers, or get delayed\nHow the application experience could be improved for users\n\n\nThis is not a causal analysis. Instead, it aims to show practical insights about patterns in approval outcomes, using variables tied to both applicant eligibility and their interactions with the process."
+    "text": "This section documents the full analysis process—from data preparation through modeling.\nFor a summary of insights, visit the Key Findings page.\nFor project context, visit the About page."
   },
   {
     "objectID": "analysis.html#overview",
     "href": "analysis.html#overview",
     "title": "Analysis Walkthrough",
     "section": "",
-    "text": "This analysis explores which factors are associated with whether a CalFresh (SNAP) application is approved or denied. The data come from 2,046 applications submitted through GetCalFresh.org in San Diego County.\n\nOur goal is to understand:\n\nWhat factors are associated with whether an applicant is approved or denied\nWhere in the process users may drop off, face barriers, or get delayed\nHow the application experience could be improved for users\n\n\nThis is not a causal analysis. Instead, it aims to show practical insights about patterns in approval outcomes, using variables tied to both applicant eligibility and their interactions with the process."
+    "text": "This section documents the full analysis process—from data preparation through modeling.\nFor a summary of insights, visit the Key Findings page.\nFor project context, visit the About page."
   },
   {
     "objectID": "analysis.html#application-walkthrough",
     "href": "analysis.html#application-walkthrough",
     "title": "Analysis Walkthrough",
     "section": "Application Walkthrough",
-    "text": "Application Walkthrough\nBefore analyzing the data, I walked through the GetCalFresh.org application process myself. This helped clarify how each field is presented to applicants, what steps are required or optional, and where friction might arise.\n\n\n\nCalFresh Survey Image\n\n\nSeeing the application from a user’s perspective provided critical context for interpreting the dataset — especially for process-related variables like document uploads, interview completion, and application duration.\n\nKey Takeaways\n\nMultilingual support is available early in the application (English, Spanish, Chinese, Vietnamese), with additional language preferences captured later.\nThe application is structured in stages: household info → income → expenses → contact details → confirmation.\nApplicants get real-time feedback about possible eligibility and whether they might qualify for expedited processing.\nDocument uploads and interviews aren’t required at submission — they can happen later, which means missing data doesn’t always signal ineligibility.\nToward the end, applicants confirm contact information, set preferences (e.g., language, reminders), and indicate interview availability.\n\nThis walkthrough was useful for interpreting behavioral data in context — especially steps that are optional, delayed, or invisible in the dataset (like phone interviews completed outside the platform)."
+    "text": "Application Walkthrough\nBefore analyzing the data, I walked through the GetCalFresh.org application process myself. This helped clarify how each field is presented to applicants, what steps are required or optional, and where friction might arise.\nSeeing the application from a user’s perspective provided critical context for interpreting the dataset — especially for process-related variables like document uploads, interview completion, and application duration.\n\nKey Takeaways\n\nMultilingual support is available early in the application (English, Spanish, Chinese, Vietnamese), with additional language preferences captured later.\nThe application is structured in stages: household info → income → expenses → contact details → confirmation.\nApplicants get real-time feedback about possible eligibility and whether they might qualify for expedited processing.\nDocument uploads and interviews aren’t required at submission — they can happen later, which means missing data doesn’t always signal ineligibility.\nToward the end, applicants confirm contact information, set preferences (e.g., language, reminders), and indicate interview availability.\n\nThis walkthrough was useful for interpreting behavioral data in context — especially steps that are optional, delayed, or invisible in the dataset (like phone interviews completed outside the platform)."
   },
   {
     "objectID": "analysis.html#about-the-data",
@@ -152,5 +152,19 @@
     "title": "Analysis Walkthrough",
     "section": "Next Steps: Areas for Deeper Analysis",
     "text": "Next Steps: Areas for Deeper Analysis\nThis section outlines follow-up analyses and design considerations to expand on the current findings and inform future improvements to the CalFresh application process.\n\nGeographic and Neighborhood Variation\n\nLink ZIP codes to American Community Survey (ACS) indicators:\n\nPoverty rate\nHousing burden\nBroadband access\nLanguages spoken at home\n\nMap approval rates by neighborhood to identify areas with potential access barriers\nAssess whether geographic disparities persist after controlling for applicant characteristics\n\n\n\nQualitative Research\n\nInterview applicants to:\n\nUnderstand perceived barriers in the process\nIdentify confusing or unclear steps\nExplore unmet needs for documentation or interview follow-up\n\nReview SMS or helpdesk interactions for common pain points\n\n\n\nTiming and Process Flow\n\nAnalyze time between:\n\nApplication start and finish\nApplication and document upload\nApplication and interview completion\n\nIdentify drop-off points or common delays in the flow\nExplore whether earlier intervention (e.g., reminders) affects outcomes\n\n\n\nAlternative Modeling Approaches\n\nTest interpretable models (e.g., decision trees) to identify interaction effects.\nUse cross-validation or bootstrap confidence intervals to strengthen robustness.\nExplore how assumptions about missing interviews affect results.\n\n\n\nApplicant Segmentation\n\nSegment applicants based on predicted probability and income eligibility\nIdentify profiles for targeted support:\n\nEligible but denied\nHigh predicted approval but not approved\n\n\n\n\nSystem and Policy Implications\n\nShare ZIP-level insights with county caseworkers and program administrators\nEvaluate platform changes (e.g., nudges, scheduling tools, help prompts) for impact on completion and approval\nExplore partnerships for assisted application support in low-approval ZIPs"
+  },
+  {
+    "objectID": "about.html#stakeholders-considered",
+    "href": "about.html#stakeholders-considered",
+    "title": "About",
+    "section": "Stakeholders Considered",
+    "text": "Stakeholders Considered\n\nGetCalFresh Team – program design and outreach\n\nCounty Human Services – eligibility decision-makers\n\nApplicants – especially those facing barriers to access"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "\nImproving Access to CalFresh\n",
+    "section": "",
+    "text": "Improving Access to CalFresh\n\n\nMaking food assistance easier to access, starting with the data.\n\nView Key Findings"
   }
 ]

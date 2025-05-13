@@ -38,23 +38,14 @@ exercise_data <- read_csv("data/exercise_data.csv") |>
 
 ## Overview
 
-This analysis explores which factors are associated with whether a CalFresh (SNAP) application is approved or denied. The data come from 2,046 applications submitted through [GetCalFresh.org](GetCalFresh.org) in San Diego County.
+This section documents the full analysis process—from data preparation through modeling.
 
-:::{.callout-purple}
-**Our goal is to understand:**
-
-- What factors are associated with whether an applicant is approved or denied
-- Where in the process users may drop off, face barriers, or get delayed
-- How the application experience could be improved for users
-:::
-
-This is not a causal analysis. Instead, it aims to show practical insights about patterns in approval outcomes, using variables tied to both applicant eligibility and their interactions with the process.
+For a summary of insights, visit the [Key Findings](https://calfresh-cfa-exercise.netlify.app/key_findings) page.  
+For project context, visit the [About](https://calfresh-cfa-exercise.netlify.app/about) page.
 
 ## Application Walkthrough
 
 Before analyzing the data, I walked through the [GetCalFresh.org](https://www.getcalfresh.org) application process myself. This helped clarify how each field is presented to applicants, what steps are required or optional, and where friction might arise.
-
-![CalFresh Survey Image](img/calfresh_survey.png)
 
 Seeing the application from a user’s perspective provided critical context for interpreting the dataset — especially for process-related variables like document uploads, interview completion, and application duration.
 

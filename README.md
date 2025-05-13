@@ -2,6 +2,11 @@
 
 This repository contains my submission for the Code for America Senior Data Scientist take-home assignment. It includes exploratory data analysis, model development, and stakeholder-focused insights using CalFresh application data from San Diego County.
 
+View the full project site here:
+[https://calfresh-cfa-exercise.netlify.app/](https://calfresh-cfa-exercise.netlify.app/)
+
+Everything written up in this repo — including all analysis, models, and summaries — can be viewed directly on the website or reproduced locally by running the code in this repository.
+
 ## Project Structure
 
 ```         
