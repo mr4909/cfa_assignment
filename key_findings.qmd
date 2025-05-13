@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
   echo = TRUE,
   warning = FALSE,
   message = FALSE,
-  include = FALSE
+  include = TRUE
 )
 
 source("R/setup.R")
@@ -161,7 +161,7 @@ These results show that relatively small steps — like completing an interview 
 The model points to clear opportunities to improve approval outcomes by supporting applicants at key decision points.
 
 ::: callout-purple
-Recommendations:
+**Recommendations:**
 
 -   **Support interview completion:** Many eligible applicants do not confirm completing the interview. Providing reminders, real-time scheduling, or alternative follow-up methods could increase follow-through.
 -   **Encourage early document uploads:** Uploading documents with the application was strongly associated with approval. Nudging users to upload early — especially those likely to qualify — could reduce denials.

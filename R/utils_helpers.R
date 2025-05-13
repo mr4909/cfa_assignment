@@ -82,9 +82,9 @@ fnc_style_reactable_table <- function(data, columns = NULL) {
 fnc_theme_cfa <- function() {
   ggplot2::theme_minimal(base_family = "sourcesans", base_size = 14) +
     ggplot2::theme(
-      plot.title = ggplot2::element_text(size = 16, face = "bold", margin = ggplot2::margin(b = 10)),
-      axis.title = ggplot2::element_text(size = 13),
-      axis.text = ggplot2::element_text(size = 12)
+      plot.title = ggplot2::element_text(size = 20, face = "bold", margin = ggplot2::margin(b = 10)),
+      axis.title = ggplot2::element_text(size = 18),
+      axis.text = ggplot2::element_text(size = 16)
     )
 }
 

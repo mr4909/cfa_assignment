@@ -50,10 +50,10 @@ library(databookR)
 # Activate renv
 # ------------------------
 
-# Activate renv if used
-if (file.exists("renv.lock")) {
-  renv::activate()
-}
+# # Activate renv if used
+# if (file.exists("renv.lock")) {
+#   renv::activate()
+# }
 
 # ------------------------
 # CFA Branding – Colors and Fonts

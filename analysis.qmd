@@ -121,7 +121,7 @@ fnc_style_reactable_table(
 
 <br>I next reviewed distributions of numeric variables to check for skew, outliers, and interpretability issues.
 
-```{r}
+```{r, fig.width=10, fig.height=12}
 # Custom binwidths depending on variable
 binwidths <- list(
   income = 250,
@@ -176,11 +176,18 @@ num_vars <- exercise_data |>
 # Compute correlations
 cor_matrix <- cor(num_vars, use = "complete.obs")
 
-# Visualize
-corrplot(cor_matrix, method = "circle", type = "upper", 
-         tl.cex = 2, tl.col = "black",
-         col = colorRampPalette(c(cfa_colors$red, "white", cfa_colors$blue))(200))
+# Visualization
+corrplot(
+  cor_matrix,
+  method = "circle",
+  type = "upper",
+  tl.cex = 1.4,      
+  cl.cex = 1.4,           
+  tl.col = "black",
+  col = colorRampPalette(c(cfa_colors$red, "white", cfa_colors$blue))(200)
+)
 ```
+
 <br>Observations:
 
 - `under18_n` and `household_size` are strongly correlated (r = 0.89), which is expected — families with children are generally larger. 
@@ -300,7 +307,7 @@ zip_summary <- exercise_data |>
   ) |>
   filter(n >= 10)
 
-# Bar chart
+# Visualization
 ggplot(zip_summary, aes(x = fct_reorder(zip, approval_rate), 
                         y = approval_rate * 100)) +
   geom_col(fill = cfa_colors$blue) +
@@ -559,7 +566,13 @@ actual <- model_data$approved
 predicted <- fitted(approval_model)
 
 roc_obj <- roc(actual, predicted)
-plot(roc_obj, col = cfa_colors$blue, lwd = 2)
+# Visualization
+plot(roc_obj,
+     col = cfa_colors$blue,
+     lwd = 2,
+     cex.lab = 1.6,   # axis labels
+     cex.axis = 1.4,  # tick labels
+     cex.main = 1.8)  # title
 pROC::auc(roc_obj)
 ```
 
@@ -629,6 +642,7 @@ model_data <- model.frame(approval_model) |>
 ```
 
 ```{r}
+# Visualization
 ggplot(model_data, aes(x = predicted_prob)) +
   geom_histogram(fill = cfa_colors$blue, color = "white", bins = 30) +
   labs(
