@@ -195,5 +195,5 @@ a:focus {
 #TOC .nav-link:hover,
 #TOC .nav-link:focus {
   color: #AF121D !important;
-  text-decoration: underline;
+  text-decoration: none;
 }

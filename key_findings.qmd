@@ -12,10 +12,10 @@ format:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-  echo = TRUE,
+  echo = FALSE,     
   warning = FALSE,
   message = FALSE,
-  include = TRUE
+  include = TRUE      
 )
 
 source("R/setup.R")
