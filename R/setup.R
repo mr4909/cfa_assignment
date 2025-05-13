@@ -1,11 +1,40 @@
 # ------------------------
 # Purpose:
-# Sets global options and defines directory paths.
-# Assumes required packages are installed.
+# Set global options and load libraries for CalFresh analysis.
+# Includes CFA branding styles.
 # ------------------------
 
 # ------------------------
-# Prerequisites
+# Package Loading (assumes installed via renv or manually)
+# ------------------------
+
+required_packages <- c(
+  "tidyverse", 
+  "janitor",
+  "quarto",
+  "htmltools",
+  "htmlwidgets",
+  "scales",
+  "here",
+  "broom",
+  "naniar",
+  "patchwork",
+  "showtext",
+  "car",
+  "corrplot",
+  "forcats",
+  "gt",
+  "reactable",
+  "pscl",
+  "ResourceSelection",
+  "pROC"
+)
+
+# Load packages quietly
+invisible(lapply(required_packages, library, character.only = TRUE))
+
+# ------------------------
+# Load custom package
 # ------------------------
 
 # Install the 'databookR' package if it's not already installed.
@@ -17,39 +46,9 @@
 # Load databook package
 library(databookR)
 
-# Load additional libraries 
-required_packages <- c(
-  "tidyverse", 
-  "janitor",
-  "quarto",
-  "sf",
-  "tigris",
-  "tidycensus",
-  "leaflet",
-  "htmltools",
-  "htmlwidgets",
-  "dplyr",
-  "stringr",
-  "scales",
-  "here",
-  "broom",
-  "naniar",
-  "patchwork",
-  "showtext",
-  "car",
-  "broom",
-  "corrplot",
-  "forcats",
-  "gt",
-  "pscl",
-  "ResourceSelection",
-  "pROC"
-)
-
-# Load packages quietly
-invisible(lapply(required_packages, library, character.only = TRUE))
-
-
+# ------------------------
+# Activate renv
+# ------------------------
 
 # # Activate renv if used
 # if (file.exists("renv.lock")) {
@@ -57,32 +56,15 @@ invisible(lapply(required_packages, library, character.only = TRUE))
 # }
 
 # ------------------------
-# Code for America Brand Styles
+# CFA Branding – Colors and Fonts
 # ------------------------
 
-# Colors
 cfa_colors <- list(
   purple = "#2b1a78",
   blue   = "#0076D6",
-  red    = "#D73A49",
-  teal   = "#17BEBB",
-  gray   = "#9B9B9B",
-  black  = "#111111"
+  red    = "#D73A49"
 )
 
-# Fonts (for visualizations)
-# Use "Source Sans 3" — free and available via Google Fonts
-cfa_font <- "Source Sans 3"
-
-# Named color scale for CFA palette
-scale_color_cfa <- function(...) {
-  scale_color_manual(values = unlist(cfa_colors), ...)
-}
-
-scale_fill_cfa <- function(...) {
-  scale_fill_manual(values = unlist(cfa_colors), ...)
-}
-
-# Add Source Sans 3 (used by Code for America)
+# Use Source Sans 3 from Google Fonts
 font_add_google("Source Sans 3", "sourcesans")
 showtext_auto()

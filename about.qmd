@@ -18,7 +18,7 @@ The goal is to identify patterns in approval outcomes and highlight steps that c
 
 ## Objectives
 
-- Identify which applicant characteristics are most strongly associated with approval.
+- Identify which application characteristics are most strongly associated with approval.
 - Understand where the process may break down (e.g., interviews, document submission).
 - Suggest actionable, user-centered improvements to reduce friction in the process.
 
@@ -31,9 +31,9 @@ The goal is to identify patterns in approval outcomes and highlight steps that c
 
 ## Project Links
 
-- **GitHub Repository**: [Link to repo](https://github.com/mr4909/cfa_assignment)
-- **Exercise Prompt**: [View exercise PDF](Data_Science_Exercise.pdf)
-- **Data Source**: [Download from Google Drive](https://drive.google.com/file/d/18BjZXdHsiMp89PriE7E14LZcX0qn3s3P/view)
+- [GitHub Repository](https://github.com/mr4909/cfa_assignment)
+- [Exercise Prompt](docs/Data_Science_Exercise.pdf)
+- [Download from Google Drive](https://drive.google.com/file/d/18BjZXdHsiMp89PriE7E14LZcX0qn3s3P/view)
 
 ## Stakeholders Considered
 

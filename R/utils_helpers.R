@@ -27,6 +27,45 @@ fnc_style_gt_table <- function(gt_tbl) {
     )
 }
 
+#' Style a reactable Table for CFA Reports
+#'
+#' Applies standardized formatting to a `reactable` table using Source Sans Pro font,
+#' compact spacing, borders, striped rows, and full-width layout.
+#'
+#' @param data A data frame to render as a styled reactable table.
+#' @param columns A list of `colDef` column definitions (optional).
+#'
+#' @return A styled `reactable` table widget.
+#' @export
+#'
+#' @examples
+#' library(reactable)
+#' fnc_style_reactable_table(head(mtcars))
+fnc_style_reactable_table <- function(data, columns = NULL) {
+  reactable::reactable(
+    data,
+    columns = columns,
+    defaultColDef = reactable::colDef(
+      minWidth = 70,
+      headerStyle = list(
+        fontWeight = "bold",
+        background = "#ece9f9",
+        fontFamily = "Source Sans 3"
+      ),
+      style = list(
+        fontFamily = "Source Sans 3"
+      )
+    ),
+    bordered = FALSE,
+    highlight = TRUE,
+    striped = TRUE,
+    compact = TRUE,
+    resizable = TRUE,
+    fullWidth = TRUE,
+    pagination = FALSE
+  )
+}
+
 #' Custom CFA ggplot Theme
 #'
 #' Creates a minimal ggplot2 theme using Source Sans font and adjusted font sizes.
@@ -118,7 +157,7 @@ fnc_approval_summary <- function(data, var) {
     ) |>
     dplyr::mutate(approval_rate = round(approval_rate * 100, 1))
   
-  min_rate <- min(summarized$approval_rate, na.rm = TRUE)
+  max_rate <- max(summarized$approval_rate, na.rm = TRUE)
   
   summarized |>
     gt::gt() |>
@@ -133,86 +172,7 @@ fnc_approval_summary <- function(data, var) {
       style = gt::cell_text(color = "#AF121D", weight = "bold"),
       locations = gt::cells_body(
         columns = approval_rate,
-        rows = approval_rate == min_rate
+        rows = approval_rate == max_rate
       )
     )
 }
-
-
-# # Helper function for styling gt tables
-# fnc_style_gt_table <- function(gt_tbl) {
-#   gt_tbl |>
-#     gt::tab_options(
-#       table.font.names = "Source Sans 3",
-#       column_labels.font.weight = "bold",
-#       column_labels.background.color = "#ece9f9",
-#       heading.title.font.size = 16,
-#       data_row.padding = gt::px(4),
-#       table.width = gt::pct(100)
-#     )
-# }
-# 
-# # Create a base plot theme
-# fnc_theme_cfa <- function() {
-#   theme_minimal(base_family = "sourcesans", base_size = 14) +
-#     theme(
-#       plot.title = element_text(size = 16, face = "bold", margin = margin(b = 10)),
-#       axis.title = element_text(size = 13),
-#       axis.text = element_text(size = 12)
-#     )
-# }
-# 
-# # Histogram function
-# fnc_plot_var <- function(var, title = NULL, max_x = NULL) {
-#   data <- exercise_data
-#   if (!is.null(max_x)) {
-#     data <- data |> filter(.data[[var]] <= max_x)
-#   }
-#   
-#   ggplot(data, aes(.data[[var]])) +
-#     geom_histogram(
-#       binwidth = binwidths[[var]],
-#       fill = cfa_colors$blue,
-#       color = "white",
-#       na.rm = TRUE
-#     ) +
-#     labs(
-#       title = title %||% var,
-#       x = var,
-#       y = "Count"
-#     ) +
-#     fnc_theme_cfa()
-# }
-# 
-# # Function to summarize approval rates across any categorical variable
-# fnc_approval_summary <- function(data, var) {
-#   var_enquo <- rlang::enquo(var)
-#   
-#   summarized <- data |>
-#     dplyr::group_by(!!var_enquo) |>
-#     dplyr::summarize(
-#       n = dplyr::n(),
-#       approval_rate = mean(approved, na.rm = TRUE),
-#       .groups = "drop"
-#     ) |>
-#     dplyr::mutate(approval_rate = round(approval_rate * 100, 1))
-#   
-#   min_rate <- min(summarized$approval_rate, na.rm = TRUE)
-#   
-#   summarized |>
-#     gt::gt() |>
-#     gt::cols_label(
-#       !!var_enquo := "Group",
-#       n = "N",
-#       approval_rate = "Approval Rate (%)"
-#     ) |>
-#     gt::fmt_number(columns = n, decimals = 0) |>
-#     fnc_style_gt_table() |> 
-#     gt::tab_style(
-#       style = gt::cell_text(color = "#AF121D", weight = "bold"),
-#       locations = gt::cells_body(
-#         columns = approval_rate,
-#         rows = approval_rate == min_rate
-#       )
-#     ) 
-# }

@@ -21,5 +21,5 @@ knitr::opts_chunk$set(
 <div id="purple-page">
   <h1 class="page-title">Improving Access to CalFresh</h1>
   <p class="page-subtitle">Making food assistance easier to access, starting with the data.</p>
-  <a href="key_findings.html" class="banner-button">View Key Findings</a>
+  <a href="https://calfresh-cfa-exercise.netlify.app/key_findings" class="banner-button">View Key Findings</a>
 </div>
