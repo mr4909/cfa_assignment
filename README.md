@@ -17,7 +17,7 @@ Everything written up in this repo — including all analysis, models, and summa
 ├── index.qmd               # Home page for the rendered site  
 ├── about.qmd, contact.qmd  # Additional project content  
 ├── styles.css              # Custom styles for Quarto outputs  
-├── data/                   # Input data (downloaded in-script)  
+├── data/                   # Input data (manually placed here)  
 ├── img/                    # Screenshots from application walkthrough  
 ├── models/                 # Saved model objects  
 ├── R/                      # R scripts and helper functions  
@@ -47,7 +47,11 @@ To execute the full workflow from start to finish:
 
     This will install all required packages in a project-specific library without affecting your system-wide R setup.
 
-4.  Render the Quarto site:
+4.  Download the data file from the link provided by Code for America.
+
+5.  Create a data/ folder in the project root (if it doesn't exist) and place the downloaded .csv file inside it.
+
+6.  Render the Quarto site:
 
     ``` r
     quarto::quarto_render()
@@ -61,11 +65,11 @@ To execute the full workflow from start to finish:
 -   `key_findings.qmd`: Simplified summary for assignment.
 -   Saved model: models/approval_model.rds
 -   Rendered outputs are saved to `_site/` by Quarto. You can open `index.html` to explore the full report.
--   Model diagnostics include test-set evaluation (AUC = 0.76) to confirm generalizability
 
 ## Data Notes
 
--   All input data is pulled directly in-script from a Google Drive link. No manual download required.
+-   The data file must be downloaded manually from the Google Drive link provided by the recruiter.
+-   After downloading, place the .csv file into the data/ folder in the project directory.
 -   No private or sensitive data is used. All work is reproducible with provided scripts.
 
 ## Branching and Collaboration
