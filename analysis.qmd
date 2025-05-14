@@ -554,7 +554,7 @@ This test checks whether the model’s predicted probabilities align with the ac
 hoslem.test(approval_model$y, fitted(approval_model))
 ```
 
-Our p-value is 0.34, which is **not staistically significant**. That’s good — it means there’s no evidence of poor fit. The model’s predictions are consistent with observed data.
+Our p-value is 0.34, which is **not statistically significant**. That’s good — it means there’s no evidence of poor fit. The model’s predictions are consistent with observed data.
 
 **3. ROC Curve and AUC (Area Under the Curve)**
 

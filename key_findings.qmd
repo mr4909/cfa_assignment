@@ -31,16 +31,26 @@ This analysis draws on 2,046 CalFresh applications submitted online in San Diego
 
 To identify what drives approval, I fit a logistic regression model using variables selected for their program relevance, observed user behavior, and patterns found in exploratory analysis. The goal was not just to predict outcomes, but to understand which steps in the process matter most — and where applicants might drop off.
 
-Key predictors included income, document uploads, and interview completion. For interpretability, income was scaled in $500 increments. Interview completion was recoded to retain applicants with missing responses, allowing us to capture meaningful differences in follow-through.
+The model included:
+
+- Income (scaled in $500 increments)
+- Household size and presence of children or older adults
+- Document uploads (with and after application)
+- Application completion time
+- Housing stability
+- Interview completion (self-reported)
+
+> For interpretability, income was scaled in $500 increments. Application time was capped at 180 minutes to reduce the influence of extreme outliers. Interview completion was recoded into a two-level variable to include missing responses as “Not confirmed,” capturing drop-off behavior.
 
 ::: callout-purple
 **Key Findings:**
 
--   Applicants who confirmed completing the interview had a predicted approval rate of **72%**, compared to **50%** for those who didn’t confirm.
--   Uploading documents with the application increased approval chances.
--   Higher income reduced the likelihood of approval — even among mostly income-eligible applicants.
--   Having children in the household was associated with higher approval odds.
--   Housing stability and application time didn’t show strong associations once other factors were considered.
+- **Interview completion was the strongest predictor:** Applicants who confirmed completing the interview had a **72%** average predicted approval rate, versus **50%** for others.
+- **Uploading documents with the application increased approval chances** — by about 13% per document, on average.
+- **Higher income reduced the odds of approval:** Each additional $500 in monthly income decreased approval odds by roughly one-third.
+- **Many income-eligible applicants were not approved:** Nearly half of those who met income criteria were denied, often due to missing interviews or documents. Income eligibility was assessed using CalFresh income limits based on household size.
+- **Applicants with children had higher approval odds**, even after controlling for household size.
+- **ZIP code mattered:** Approval rates varied significantly across ZIPs, suggesting geographic differences in access or processing.
 :::
 
 The table below shows model results using odds ratios — a way to estimate how each factor affects the odds of approval, controlling for all others. For example, an odds ratio of 1.5 means the odds of approval are 50% higher for that group compared to the baseline.
@@ -155,6 +165,8 @@ example_profiles |>
   fnc_style_gt_table()
 ```
 These results show that relatively small steps — like completing an interview or uploading a document — can meaningfully increase the chance of approval. Many of these steps could be supported through timely nudges, simpler workflows, or user-centered reminders.
+
+See full analysis walkthrough [here](https://calfresh-cfa-exercise.netlify.app/analysis) for details on variable preparation, modeling assumptions, and diagnostics.
 
 ## 2. Potential Improvements
 
