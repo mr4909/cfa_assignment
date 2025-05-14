@@ -22,15 +22,6 @@ knitr::opts_chunk$set(
 source("R/setup.R")
 source("R/utils_helpers.R")
 
-# File ID from link
-file_id <- "18BjZXdHsiMp89PriE7E14LZcX0qn3s3P"
-
-# Construct the direct download URL
-url <- paste0("https://drive.google.com/uc?export=download&id=", file_id)
-
-# Download the file
-download.file(url, destfile = "data/exercise_data.csv", mode = "wb")
-
 # Read it into R
 exercise_data <- read_csv("data/exercise_data.csv") |> 
   clean_names() |> 
