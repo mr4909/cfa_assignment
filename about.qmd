@@ -32,7 +32,6 @@ The goal is to identify patterns in approval outcomes and highlight steps that c
 ## Project Links
 
 - [GitHub Repository](https://github.com/mr4909/cfa_assignment)
-- [Download from Google Drive](https://drive.google.com/file/d/18BjZXdHsiMp89PriE7E14LZcX0qn3s3P/view)
 
 ## Stakeholders Considered
 
